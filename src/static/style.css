@@ -4,3 +4,9 @@
 .floatRight{
     float: right;
 }
+.indexList{
+    padding-right:0.75rem;
+}
+.big{
+    font-size: 30px;
+}

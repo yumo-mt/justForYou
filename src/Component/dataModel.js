@@ -16,12 +16,12 @@ function _request (_method,_api,_params,_onSuccess,_onError) {
         method:_method,
         mode: "cors",
         headers:{
-        //     'Accept':'application/json',
+            // 'Accept':'application/json',
              'Content-Type':'application/json',
         },
-        body:(_method == 'get')? null:JSON.stringify(_params)
+        body:(_method == 'GET')? null:JSON.stringify(_params)
     };
-    console.log(_options,'123456');
+    // console.log(_options,'123456');
     if(_method.toLowerCase() == 'get'){
         _api+=Tools._getSearchFromObject(_params)
     }
@@ -30,7 +30,6 @@ function _request (_method,_api,_params,_onSuccess,_onError) {
         .then(Tools.parseJSON)
         .then((data)=>{
                 _onSuccess(data)
-
         })
         .catch((err)=>{
             console.log(err);
@@ -49,6 +48,27 @@ function _request (_method,_api,_params,_onSuccess,_onError) {
         })
 }
 
+// Upload Image
+function _upload(_api, _formdata, _onSuccess, _onError){
+
+    // Manual XHR & FormData
+    let oReq = new XMLHttpRequest();
+    oReq.open("POST", _api);
+    oReq.onload = (e) => {
+        let ret = JSON.parse(oReq.responseText)
+        if (oReq.status == 200) {
+            _onSuccess(ret);
+        } else {
+            let err = ret;
+            if(err.message) alert(err.message)
+            //_onError(err);
+        }
+    };
+    // oReq.upload.onprogress = updateProgress;
+    oReq.send(_formdata);
+}
+
+
 let Tools = {
     checkStates: function (response) {
         if(response.ok){
@@ -64,6 +84,7 @@ let Tools = {
         return response.json();
     },
     _getSearchFromObject:function(param, key) {
+
         if(param == null) return '';
         let _search = '?';
         for (let key in param) {
@@ -83,11 +104,26 @@ let UserModel = {
         return localStorage.getItem(USER_TOKEN);
     },
     register:(_params,_success,_error)=>{
-        _request('POST',`${API}register`,_params,_success,_error)
+        _request('POST',`${API}user/register`,_params,_success,_error)
     },
     login:(_params,_success,_error)=>{
-        _request('POST',`${API}login`,_params,_success,_error)
+        _request('POST',`${API}user/login`,_params,_success,_error)
+    },
+    getUserInfo:(_params,_success,_error)=>{
+        _request('GET',`${API}user/getUserInfo`,_params,_success,_error);
+    },
+    uploadAvatar:(_params,_success,_error)=>{
+        _upload(`${API}user/uploadAvatar`,_params,_success,_error)
     }
 }
+let PulishModel={
+    pulish:(_params,_success,_error)=> {
+        _request('POST', `${API}article/pulish`, _params, _success, _error)
+    },
+    fetchList:(_params,_success,_error)=>{
+        _request('GET',`${API}article/fetchList`,_params,_success,_error)
+    }
 
-export {UserModel}
+}
+
+export {UserModel,PulishModel}
