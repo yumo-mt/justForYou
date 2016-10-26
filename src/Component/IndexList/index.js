@@ -1,5 +1,6 @@
 import React from 'react';
-import {UserModel,PulishModel} from '../dataModel';
+import {Link} from 'react-router';
+import {UserModel,ArticleModel} from '../dataModel';
 import '../../static/style.css';
 let Styles = {
     indexList:{
@@ -32,14 +33,12 @@ class IndexList extends React.Component {
     }
 
     componentDidMount(){
-        PulishModel.fetchList('',(data)=>{
-            console.log(data,'-*-*-*-')
+        ArticleModel.fetchList('',(data)=>{
             this.setState({
                 list:data,
             })
         },(err)=>{
-            console.log(err,'err')
-            // $.alert(err);
+            console.log(err)
         })
     }
     //方法之间调用
@@ -74,6 +73,7 @@ class IndexList extends React.Component {
         return  list.map(function (item,index) {
             return(
                 <li className="item-content" style={Styles.indexList} key={item._id}>
+                    <Link to={'/indexList/'+item._id}>
                     <div className="list">
                         <div className="" style={{paddingTop:'0.4rem'}}>
                             <div style={{display:'inline-block',verticalAlign:'top',height:'2rem'}}>
@@ -88,6 +88,7 @@ class IndexList extends React.Component {
                         <div className=""><h4 style={Styles.h4Style}>{item.title}</h4></div>
                         <div className=""><p style={Styles.pStyle}>{item.content}</p></div>
                     </div>
+                    </Link>
                 </li>)
         })
     }
@@ -103,7 +104,6 @@ class IndexList extends React.Component {
 
                         </ul>
                     </div>
-
                 </div>
             </mian>
         );

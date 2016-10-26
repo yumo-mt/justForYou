@@ -1,5 +1,5 @@
 import React from 'react';
-import {UserModel,PulishModel} from '../dataModel';
+import {UserModel,ArticleModel} from '../dataModel';
 
 
 class Create extends React.Component {
@@ -38,7 +38,7 @@ class Create extends React.Component {
             return;
         }
         let info = {title:title,content:content,token:this.state.token}
-        PulishModel.pulish(info,(data)=>{
+        ArticleModel.pulish(info,(data)=>{
             $.toast(data.title);
             location.hash = '/indexList'
         },(err)=>{

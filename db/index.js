@@ -14,7 +14,7 @@ mongoose.model('User',new mongoose.Schema({
 }))
 
 //列表Model
-mongoose.model('Acticle',new mongoose.Schema({
+mongoose.model('Article',new mongoose.Schema({
     // id:{type:String,isRequired:true},
     title:{type:String,isRequired:true},    //标题
     content:{type:String,isRequired:true},  //内容

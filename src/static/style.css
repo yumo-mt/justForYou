@@ -1,3 +1,6 @@
+a{
+    color: inherit;
+}
 .floatLeft{
     float: left;
 }
@@ -9,4 +12,34 @@
 }
 .big{
     font-size: 30px;
+}
+.article{
+    text-indent: 2em;
+
+}
+#app{
+    height:100%;
+
+}
+.marR{
+    margin-right:0.4rem;
+}
+.font12{
+    font-size: 13px;
+}
+.content{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 60px;
+    left: 0;
+    padding-bottom: 60px;
+}
+.clearPt{
+    margin-top: 0rem;
+}
+ul,li{
+    list-style: none;
+    margin: 0;
+    padding:0;
 }

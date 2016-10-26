@@ -14,7 +14,7 @@ router.post('/pulish',function (req,res) {
         }else{
              info.username = doc.username;
         }
-        Model('Acticle').create(info,function (err,doc) {
+        Model('Article').create(info,function (err,doc) {
             if(err){
                 res.send(err)
             }else{
@@ -26,7 +26,7 @@ router.post('/pulish',function (req,res) {
     })
 })
 router.get('/fetchList',function (req,res) {
-    Model('Acticle').find().populate('user').exec(function (err,docs) {
+    Model('Article').find().populate('user').exec(function (err,docs) {
         var acticleList=[];
         docs.forEach(function (item) {
             acticleList.push({
@@ -40,6 +40,28 @@ router.get('/fetchList',function (req,res) {
         })
         res.send(acticleList)
     })
+})
+router.get('/fetchArticle/:id',function (req,res) {
+    var article_id=req.params.id;
+    Model('Article').findById(article_id).populate('user').exec(function (err,doc) {
+        if(err){
+            res.send(err)
+        }else{
+            if(doc){
+                    var article = {};
+                    article = {
+                        title:doc.title,
+                        content:doc.content,
+                        createAt:doc.createAt,
+                        pv : doc.pv,
+                        article_id:doc._id,
+                        author:{_id:doc.user._id,avatar:doc.user.avatar,username:doc.user.username},
+                    }
+                res.send({id:1,content:article})
+            }
+        }
+    })
+
 })
 
 

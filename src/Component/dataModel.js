@@ -116,14 +116,16 @@ let UserModel = {
         _upload(`${API}user/uploadAvatar`,_params,_success,_error)
     }
 }
-let PulishModel={
+let ArticleModel={
     pulish:(_params,_success,_error)=> {
         _request('POST', `${API}article/pulish`, _params, _success, _error)
     },
     fetchList:(_params,_success,_error)=>{
         _request('GET',`${API}article/fetchList`,_params,_success,_error)
+    },
+    fetchArticle:(_id,_success,_error)=>{
+      _request('GET',`${API}article/fetchArticle/${_id}`,null,_success,_error)
     }
-
 }
 
-export {UserModel,PulishModel}
+export {UserModel,ArticleModel}
