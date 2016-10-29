@@ -26,9 +26,6 @@ class ArticleDetail extends React.Component{
             <ul>
                 <li>这是第一条评论</li>
                 <li>这是第一条评论</li>
-                <li>这是第一条评论</li>
-                <li>这是第一条评论</li>
-                <li>这是第一条评论</li>
             </ul>
         )
     }
