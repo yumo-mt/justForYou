@@ -21,7 +21,8 @@ mongoose.model('Article',new mongoose.Schema({
     createAt:{type:String,isRequired:true},
     pv:{type:Number,default:0},
     user:{type:ObjectId,ref:'User'},
-    username:{type:String,isRequired:true}
+    username:{type:String,isRequired:true},
+    star:{type:Array,default:[]}
 }))
 //在程序的任何地方都可以调用此方法,设置为全局
 global.Model = function (modelName) {

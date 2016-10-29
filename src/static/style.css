@@ -31,9 +31,19 @@ a{
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 60px;
+    bottom: 50px;
     left: 0;
-    padding-bottom: 60px;
+
+
+}
+.detailContent{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 50px;
+    left: 0;
+    padding: 0.5rem;
+    background: white;
 }
 .clearPt{
     margin-top: 0rem;

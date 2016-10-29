@@ -26,7 +26,11 @@ router.post('/pulish',function (req,res) {
     })
 })
 router.get('/fetchList',function (req,res) {
-    Model('Article').find().populate('user').exec(function (err,docs) {
+    var orderBy = 'createAt';
+    var order = -1;
+    var orderObj = {};
+    orderObj[orderBy] = order;
+    Model('Article').find().sort(orderObj).populate('user').exec(function (err,docs) {
         var acticleList=[];
         docs.forEach(function (item) {
             acticleList.push({
@@ -36,6 +40,7 @@ router.get('/fetchList',function (req,res) {
                 user:{_id:item.user._id,avatar:item.user.avatar,username:item.user.username},
                 _id:item._id,
                 pv:item.pv,
+                star:item.star,
             })
         })
         res.send(acticleList)
@@ -61,8 +66,33 @@ router.get('/fetchArticle/:id',function (req,res) {
             }
         }
     })
-
 })
 
+router.post('/giveStar',function (req,res) {
+    var info  = req.body;
+    var userid = info.userId;
+    var articleId = info.articleId;
+    Model('Article').findById(articleId,function (err,doc) {
+        if(err){
+            res.send(err)
+        }else{
+            var star = doc.star;
+            for(var i=0;i<star.length;i++){
+                if(star[i]==userid){
+                    res.send({title:1,content:'您已经赞过了'})
+                    return;
+                }
+            }
+            star.push(userid);
+            Model('Article').update({_id:articleId},{$set:{star:star}},function (err,result) {
+                if(err){
+                    res.send(err)
+                }else{
+                    res.send({title:1,content:'点赞成功'})
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;

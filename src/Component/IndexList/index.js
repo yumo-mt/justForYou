@@ -8,7 +8,9 @@ let Styles = {
         marginBottom:'0.2rem',
         borderTop:'1px solid #dfdfdf',
         borderBottom:'1px solid #dfdfdf',
-        background:"#fff"
+        background:"#fff",
+        paddingLeft:"0.75rem",
+        paddingBottom:"0.3rem"
     },
     h4Style:{
         margin:"0.3rem 0"
@@ -67,13 +69,64 @@ class IndexList extends React.Component {
             else result="刚刚";
             return result;
     }
+    giveStar(e){
+        var _this = this;
+        let userToken = UserModel.fetchToken();
+       if(!userToken){
+            $.toast('您还没有登录');
+           return;
+       }
+       let thisSpan = e.nativeEvent.target;
+        // if(thisSpan.getAttribute('data-hasStar')){
+        //     $.toast('您已经点赞过了');
+        //     return;
+        // }
+       let articleId = thisSpan.getAttribute('data-articleid');
+       let params = {
+            userId : userToken,
+            articleId :articleId,
+       }
+       ArticleModel.giveStar(params,(data)=>{
+           console.log(data);
+           if(data.title){
+               thisSpan.style.color = 'red';
+               // thisSpan.setAttribute('data-hasStar',1);
+               $.toast(data.content)
+               this.componentDidMount()
+           }
+       },(err)=>{
+           console.log(err)
+       })
+        console.log(articleId)
+    }
+    starStyle(starlist){
+        let userToken = UserModel.fetchToken();
+        for(let i=0;i<starlist.length;i++){
+            let cur = starlist[i];
+            if(cur == userToken){
+                return {marginRight:'0.5rem',paddingLeft:'0.3rem',color:'red'}
+            }
+        }
+        return {marginRight:'0.5rem',paddingLeft:'0.3rem'}
+    }
+    // hasStar(starlist){
+    //     let userToken = UserModel.fetchToken();
+    //     for(var i=0;i<starlist.length;i++){
+    //         var cur = starlist[i];
+    //         if(cur == userToken){
+    //             return 1;
+    //         }else {
+    //             return 0;
+    //         }
+    //     }
+    // }
     indexList(){
         let _this = this
         let list = this.state.list;
         return  list.map(function (item,index) {
             return(
-                <li className="item-content" style={Styles.indexList} key={item._id}>
-                    <Link to={'/indexList/'+item._id}>
+                <li className="" style={Styles.indexList} key={item._id}>
+                    <Link to={'/indexList/'+item._id} style={{display:'block'}}>
                     <div className="list">
                         <div className="" style={{paddingTop:'0.4rem'}}>
                             <div style={{display:'inline-block',verticalAlign:'top',height:'2rem'}}>
@@ -81,7 +134,7 @@ class IndexList extends React.Component {
                             </div>
                             <div style={{display:'inline-block',verticalAlign:'top',height:'2rem'}}>
                                 <div style={{fontSize:'14px',fontWeight:600}}>{item.user.username}</div>
-                                <div style={{fontSize:'12px'}}>{_this.dateDiff(item.createAt)}</div>
+                                <div style={{fontSize:'12px'}}><span className="icon icon-clock"> </span> {_this.dateDiff(item.createAt)}</div>
                             </div>
 
                         </div>
@@ -89,14 +142,16 @@ class IndexList extends React.Component {
                         <div className=""><p style={Styles.pStyle}>{item.content}</p></div>
                     </div>
                     </Link>
+                    <div style={{display:'block',width:'100%',fontSize:'14px'}}>
+                        <span className="icon icon-star" style={_this.starStyle(item.star)} onClick={(e)=>{_this.giveStar(e)}} data-articleId={item._id}> {item.star.length}</span>
+                        <span className="icon icon-message"> 30</span>
+                    </div>
                 </li>)
         })
     }
-
-
     render() {
         return (
-            <mian>
+            <main>
                 <div className="content">
                     <div className="list-block" style={Styles.listBlock}>
                         <ul style={{background:"#eee"}}>
@@ -105,7 +160,7 @@ class IndexList extends React.Component {
                         </ul>
                     </div>
                 </div>
-            </mian>
+            </main>
         );
     }
 }

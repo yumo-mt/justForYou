@@ -60,7 +60,7 @@ class ArticleDetail extends React.Component{
     }
     render(){
         return(
-            <main className="content content-padded">
+            <main className="detailContent">
                 <h2 className="clearPt">{this.state.article.title}</h2>
                 <div>
                     <span className="font12 marR">作者:{this.state.author.username}</span>
