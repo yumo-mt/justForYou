@@ -41,6 +41,7 @@ router.get('/fetchList',function (req,res) {
                 _id:item._id,
                 pv:item.pv,
                 star:item.star,
+                commentNum:item.comments.length,
             })
         })
         res.send(acticleList)
@@ -48,12 +49,23 @@ router.get('/fetchList',function (req,res) {
 })
 router.get('/fetchArticle/:id',function (req,res) {
     var article_id=req.params.id;
-    Model('Article').findById(article_id).populate('user').exec(function (err,doc) {
+    var article = {};
+    Model('Article').findById(article_id).populate('user').populate('comments.user').exec(function (err,doc) {
         if(err){
             res.send(err)
         }else{
             if(doc){
-                    var article = {};
+                var comments = doc.comments;
+                var commentsList = [];
+                comments.forEach(function (item) {
+                    commentsList.push({
+                        username:item.user.username,
+                        userId:item.user._id,
+                        avatar:item.user.avatar,
+                        createAt:item.createAt,
+                        comment:item.content,
+                    })
+                })
                     article = {
                         title:doc.title,
                         content:doc.content,
@@ -61,6 +73,7 @@ router.get('/fetchArticle/:id',function (req,res) {
                         pv : doc.pv,
                         article_id:doc._id,
                         author:{_id:doc.user._id,avatar:doc.user.avatar,username:doc.user.username},
+                        comments:commentsList
                     }
                 res.send({id:1,content:article})
             }
@@ -94,5 +107,19 @@ router.post('/giveStar',function (req,res) {
         }
     })
 })
+router.post('/comment',function (req,res) {
+    var info = req.body;
+    var articleId=info.articleId;
+    var userId = info.userId;
+    var comment = info.comment;
+    Model('Article').update({_id:articleId},{
+        $push:{comments:{user:userId,content:comment}}},function(err,newDoc){
+        if(err){
+            res.send(err);
+        }else{
+            res.send({title:1,content:'评论成功'})
+        }
+    })
+});
 
 module.exports = router;

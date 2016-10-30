@@ -1,13 +1,15 @@
 import React from 'react';
 import '../../static/style.css'
-import {ArticleModel} from '../dataModel'
+import {ArticleModel,UserModel} from '../dataModel';
+import {dateDiff} from '../../Tools'
 class ArticleDetail extends React.Component{
     constructor(props){
         super(props);
         this.state={
             commentList:[],
             article:'',
-            author:''
+            author:'',
+            comment:[]
         }
     }
     componentDidMount(){
@@ -15,53 +17,71 @@ class ArticleDetail extends React.Component{
         ArticleModel.fetchArticle(article_id,(data)=>{
             this.setState({
                 article:data.content,
-                author:data.content.author
+                author:data.content.author,
+                comment:data.content.comments
             })
         },(err)=>{
             console.log(err)
         })
     }
     commentList(){
+        let commentList = this.state.comment.map(function (item,index) {
+            var reactId = 0;
+            return(
+                <li className="row" key={index}>
+                    <div className="col-15" style={{padding:'0.3rem 0'}}>
+                        <img className="commentAvatar" src={item.avatar} alt=""/>
+                    </div>
+                    <div className="col-85 commentList">
+                        <div style={{fontWeight:'600'}}>{item.username}</div>
+                        <p style={{margin:'0.2rem 0'}}>{item.comment}</p>
+                        <div style={{fontSize:'12px'}}><span className="icon icon-clock"> </span> {dateDiff(item.createAt)}</div>
+                    </div>
+                </li>
+            )
+        })
+
         return(
             <ul>
-                <li>这是第一条评论</li>
-                <li>这是第一条评论</li>
+                {commentList}
+
             </ul>
         )
     }
-    //方法之间调用
-    dateDiff(hisTime){
-        var now =new Date().getTime(),
-            diffValue = now - hisTime,
-            result='',
-            minute = 1000 * 60,
-            hour = minute * 60,
-            day = hour * 24,
-            halfamonth = day * 15,
-            month = day * 30,
-            year = month * 12,
-            _year = diffValue/year,
-            _month =diffValue/month,
-            _week =diffValue/(7*day),
-            _day =diffValue/day,
-            _hour =diffValue/hour,
-            _min =diffValue/minute;
-        if(_year>=1) result=parseInt(_year) + "年前";
-        else if(_month>=1) result=parseInt(_month) + "个月前";
-        else if(_week>=1) result=parseInt(_week) + "周前";
-        else if(_day>=1) result=parseInt(_day) +"天前";
-        else if(_hour>=1) result=parseInt(_hour) +"个小时前";
-        else if(_min>=1) result=parseInt(_min) +"分钟前";
-        else result="刚刚";
-        return result;
+    checkLogin(){
+       var usertoken = UserModel.fetchToken()
+        if(!usertoken){
+           $.alert('您还没有登录')
+        }
+        return
+    }
+    handleComment(){
+        let comment = this.refs.commentText.value;
+        let articleId = this.props.params.id;
+        let userId = UserModel.fetchToken();
+        let params = {
+            userId:userId,
+            articleId:articleId,
+            comment:comment
+            }
+        ArticleModel.comment(params,(data)=>{
+            console.log(data);
+            $.toast(data.content);
+            this.refs.commentText.value='';
+            this.componentDidMount();
+        },(err)=>{
+            console.log(err)
+        })
     }
     render(){
         return(
+            <div>
+
             <main className="detailContent">
                 <h2 className="clearPt">{this.state.article.title}</h2>
                 <div>
                     <span className="font12 marR">作者:{this.state.author.username}</span>
-                    <span className="font12">发表于:{this.dateDiff(this.state.article.createAt)}</span>
+                    <span className="font12">发表于:{dateDiff(this.state.article.createAt)}</span>
                 </div>
                 <hr/>
                 <div className="article">
@@ -69,10 +89,16 @@ class ArticleDetail extends React.Component{
                 </div>
                 <hr/>
                 <div>
-                    <h4 className="clearPt">评论:</h4>
+                    <h3 className="clearPt">评论:</h3>
                     {this.commentList()}
                 </div>
             </main>
+                <div className="comment row no-gutter" style={{margin:'none'}}>
+                    <input type="text" ref="commentText" className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
+                    <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
+                </div>
+            </div>
+
         )
     }
 }

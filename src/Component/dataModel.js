@@ -128,6 +128,9 @@ let ArticleModel={
     },
     giveStar:(_params,_success,_error)=>{
         _request('POST',`${API}article/giveStar`,_params,_success,_error)
+    },
+    comment:(_params,_success,_error)=>{
+        _request('POST',`${API}article/comment`,_params,_success,_error)
     }
 }
 

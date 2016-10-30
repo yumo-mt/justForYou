@@ -53,3 +53,35 @@ ul,li{
     margin: 0;
     padding:0;
 }
+hr{
+    height:1px;border:none;border-top:1px dashed #0066CC;
+}
+.comment{
+    position: fixed;
+    bottom: 0;
+    height:60px;
+    padding-top: 5px;
+    /*border-top:1px solid #e0e0e0 ;*/
+    background: #fff;
+    width: 100%;
+    z-index: 999;
+    padding:3px 0.5rem;
+    box-shadow:0px -1px 3px 0px #888888;
+
+}
+.comment a{
+
+}
+.commentInput{
+    padding: 0 0.5rem;
+    height:100%;
+}
+.commentAvatar{
+    height:2rem;
+    width:2rem;
+}
+.commentList{
+    border-top:1px solid #e0e0e0;
+    padding:0.2rem 0;
+
+}
