@@ -9,6 +9,7 @@ import IndexList from '../Component/IndexList'
 import App from '../Component/main'
 import Login from '../Component/Login'
 import ArticleDetail from '../Component/articleDetail/'
+import MyArticle from '../Component/Me/myArticle'
 
 //6214830160437975
 class RouteConfig extends React.Component{
@@ -20,9 +21,11 @@ class RouteConfig extends React.Component{
                     <Route name="indexlist" path="/indexlist" component={IndexList}/>
                     <Route name="articleDetail" path="/indexList/:id" component={ArticleDetail}/>
                     <Route path="/create" component={Create}/>
+                    <Route path="/create/:id" component={Create}/>
                     <Route path="/me" component={Me}/>
                     {/*<Route path="/me/avatar" component={Avatar}/>*/}
                     <Route path="/login" component={Login} />
+                    <Route path="/myArticle" component={MyArticle} />
                 </Route>
             </Router>
         )

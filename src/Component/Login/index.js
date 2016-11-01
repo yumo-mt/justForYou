@@ -92,19 +92,9 @@ class Login extends React.Component {
         },(err)=>{
             console.log(err)
         })
-
-        // userInfo = JSON.stringify(userInfo)
-        // var cors = new XMLHttpRequest();
-        // cors.open('post', 'http://localhost:5566/register', true);
-        // cors.onload = function () {
-        //     console.log(cors);
-        // }
-        // cors.send(userInfo)
-
     }
     handleChangeVal(e,key){
         let val = e.target.value
-        console.log(key)
         switch (key){
             case 'username':
                 this.setState({username:val});

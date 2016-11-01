@@ -71,7 +71,6 @@ router.post('/uploadAvatar',function (req,res) {
 })
 
 router.get('/getUserInfo',function (req,res) {
-
     var info = {};
     Model('User').findOne({_id:req.query.token},function (err,doc) {
         if(err){
@@ -87,6 +86,29 @@ router.get('/getUserInfo',function (req,res) {
         }
 
     })
+})
+router.get('/fetchArticle',function (req,res) {
+     var orderBy = 'createAt';
+     var order = -1;
+     var orderObj = {};
+     orderObj[orderBy] = order;
+     var userId = req.query.userId;
+     Model('Article').find({user:userId}).sort(orderObj).exec(function (err,docs) {
+         if(err){
+             res.send(err)
+         }else{
+             var json = [];
+             docs.forEach(function (item) {
+                 json.push({
+                     articleId:item._id,
+                     title:item.title,
+                     content:item.content
+                 })
+             })
+             res.send({title:1,content:json})
+         }
+
+     })
 })
 
 module.exports = router;

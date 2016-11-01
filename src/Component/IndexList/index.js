@@ -47,8 +47,8 @@ class IndexList extends React.Component {
     //方法之间调用
 
     giveStar(e){
-        var _this = this;
-        let userToken = UserModel.fetchToken();
+       var _this = this;
+       let userToken = UserModel.fetchToken();
        if(!userToken){
             $.toast('您还没有登录');
            return;

@@ -1,6 +1,9 @@
 import React from 'react';
 import {UserModel} from '../dataModel';
+import {Link} from 'react-router';
 var ReactDOM = require('react-dom');
+
+
 let  Styles = {
     info:{
 
@@ -87,8 +90,9 @@ class Me extends React.Component {
                             <li className="item-content">
                                 <div className="item-media"><i className="icon icon-edit"></i></div>
                                 <div className="item-inner">
-                                    <div className="item-title">我的文章</div>
-                                    {/*<div className="item-after">杜蕾斯</div>*/}
+                                    <Link to={'myArticle'} style={{height:'100%',width:'100%',display:'block'}}>
+                                        <div className="item-title">我的文章</div>
+                                    </Link>
                                 </div>
                             </li>
                         </ul>

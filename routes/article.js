@@ -4,26 +4,38 @@ var router = express.Router();
 
 router.post('/pulish',function (req,res) {
     var info = req.body;
-    info.createAt = Date.now();
-    info.user = info.token;
-    delete info.token;
-    Model('User').findById(info.user,function (err,doc) {
-        if(err){
-            res.send(err);
-            return;
-        }else{
-             info.username = doc.username;
-        }
-        Model('Article').create(info,function (err,doc) {
+    if(info.article){
+        Model('Article').update({_id:info.article},{$set:{title:info.title,content:info.content}},function (err,result) {
             if(err){
                 res.send(err)
             }else{
-                if(doc){
-                    res.send({title:'发表成功',content:''});
-                }
+                res.send({title:1,content:'修改成功'})
             }
         })
-    })
+
+    }else{
+        info.createAt = Date.now();
+        info.user = info.token;
+        delete info.token;
+        Model('User').findById(info.user,function (err,doc) {
+            if(err){
+                res.send(err);
+                return;
+            }else{
+                info.username = doc.username;
+            }
+            Model('Article').create(info,function (err,doc) {
+                if(err){
+                    res.send(err)
+                }else{
+                    if(doc){
+                        res.send({title:1,content:'发表成功'});
+                    }
+                }
+            })
+        })
+    }
+
 })
 router.get('/fetchList',function (req,res) {
     var orderBy = 'createAt';

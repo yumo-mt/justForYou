@@ -114,6 +114,9 @@ let UserModel = {
     },
     uploadAvatar:(_params,_success,_error)=>{
         _upload(`${API}user/uploadAvatar`,_params,_success,_error)
+    },
+    fetchArticle:(_params,_success,_error)=>{
+        _request('GET',`${API}user/fetchArticle`,_params,_success,_error)
     }
 }
 let ArticleModel={

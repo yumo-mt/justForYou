@@ -13,18 +13,27 @@ class Create extends React.Component {
             token:token,
             title:'',
             content:'',
+            pageTitle:'发表文章',
+            articleId:null
         }
     }
     componentDidMount(){
-        console.log('App componentDidMount');
+        let articleId = this.props.params.id;
+        if(articleId){
+           this.fetchData(articleId);
+           this.setState({pageTitle:'修改文章',articleId:articleId})
+        }
     }
-
-    componentWillReceiveProps(){
-        console.log('App componentWillReceiveProps');
-    }
-
-    componentDidUpdate(){
-        console.log('App componentDidUpdate');
+    fetchData(key){
+        ArticleModel.fetchArticle(key,(data)=>{
+            this.setState({
+                title:data.content.title,
+                content:data.content.content,
+                article:data.content.article_id
+            })
+        },(err)=>{
+            console.log(err)
+        })
     }
     handlePublish(e){
         let title = this.refs.title.value;
@@ -37,23 +46,28 @@ class Create extends React.Component {
             $.alert('内容不能为空')
             return;
         }
-        let info = {title:title,content:content,token:this.state.token}
+        let info = {title:title,content:content,token:this.state.token,article:this.state.articleId?this.state.articleId:''}
+        console.log(info)
         ArticleModel.pulish(info,(data)=>{
-            $.toast(data.title);
+            $.toast(data.content);
             location.hash = '/indexList'
         },(err)=>{
             $.alert(err)
         })
-
     }
-    handleCancel(e){
-
+    handleChangeVal(e,key){
+        let val = e.target.value;
+        if(key=='title'){
+            this.setState({title:val})
+        }else{
+            this.setState({content:val})
+        }
     }
     render() {
         return (
             <div>
                 <header className="bar bar-nav">
-                    <h1 className='title'>发表文章</h1>
+                    <h1 className='title'>{this.state.pageTitle}</h1>
                 </header>
                 <div className="content">
                     <div className="list-block">
@@ -62,18 +76,16 @@ class Create extends React.Component {
                                 <div className="item-content">
                                     <div className="item-inner" style={{borderBottom:"2px solid #eee"}}>
                                         <div className="item-input">
-                                            <input type="text" ref="title" placeholder="请输入标题"/>
+                                            <input type="text" ref="title" placeholder="请输入标题" value={this.state.title} onChange={(e)=>{this.handleChangeVal(e,'title')}}/>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-
-
                             <li className="align-top">
                                 <div className="item-content">
                                     <div className="item-inner">
                                         <div className="item-input">
-                                            <textarea placeholder="请输入内容" ref="content" style={{height:"13rem"}}></textarea>
+                                            <textarea placeholder="请输入内容" ref="content" style={{height:"13rem"}} onChange={(e)=>{this.handleChangeVal(e,'content')}} value={this.state.content}/>
                                         </div>
                                     </div>
                                 </div>
