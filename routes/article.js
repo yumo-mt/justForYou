@@ -124,8 +124,9 @@ router.post('/comment',function (req,res) {
     var articleId=info.articleId;
     var userId = info.userId;
     var comment = info.comment;
+    var createAt = Date.now();
     Model('Article').update({_id:articleId},{
-        $push:{comments:{user:userId,content:comment}}},function(err,newDoc){
+        $push:{comments:{user:userId,content:comment,createAt:createAt}}},function(err,newDoc){
         if(err){
             res.send(err);
         }else{

@@ -44,6 +44,7 @@ a{
     left: 0;
     padding: 0.5rem;
     background: white;
+    overflow: auto;
 }
 .clearPt{
     margin-top: 0rem;

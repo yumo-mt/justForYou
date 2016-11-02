@@ -26,7 +26,7 @@ mongoose.model('Article',new mongoose.Schema({
     comments:[{//评论的一个数组
         user:{type:ObjectId,ref:'User'},//评论人
         content:{type:String},//评论的内容
-        createAt:{type:String,default:Date.now()}//评论的时间
+        createAt:{type:String,isRequired:true}//评论的时间
     }],
 }))
 //在程序的任何地方都可以调用此方法,设置为全局
