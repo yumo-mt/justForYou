@@ -1,38 +1,38 @@
 import React from 'react';
 import {UserModel} from '../dataModel';
 import {Link} from 'react-router';
-var ReactDOM = require('react-dom');
+import ReactDOM from 'react-dom';
 
-
-let  Styles = {
-    info:{
-
-    }
-}
 class Me extends React.Component {
     constructor(props){
         super(props);
-        //判断是否登录
-        var token = UserModel.fetchToken()
-        if(!token){
-            location.hash = "/login";
-        }
         this.state = {
             info:[],
         };
     }
 
     componentDidMount(){
-       let token= UserModel.fetchToken();
-       let info = {token:token};
-       UserModel.getUserInfo(info,(res)=>{
-           // console.log(res)
+        //判断是否登录
+        var token = UserModel.fetchToken()
+        if(!token){
+            this.context.router.push('login')
+            return;
+        }
+        this.fetchData();
+    }
+    fetchData(){
+        let token= UserModel.fetchToken();
+        let info = {token:token};
+        UserModel.getUserInfo(info,(res)=>{
+            // console.log(res)
             this.setState({
                 info:res,
             })
-       },(err)=>{
-           console.log(err)
-       })
+        },(err)=>{
+            console.log(err)
+        })
+    }
+    componentWillUnmount(){
     }
     openUpload(e){
         e.stopPropagation();
@@ -52,15 +52,19 @@ class Me extends React.Component {
         var token = UserModel.fetchToken();
         data.append('token',token)
         UserModel.uploadAvatar(data,(data)=>{
-            console.log(data,'*-*--*')
             $.toast(data.content);
             this.componentDidMount()
         },(err)=>{
             console.log(err)
         })
-        // console.log(this.files&&this.files[0])
-        // let fire = this.file                   580611650b710b44eb27d612123
-        // console.log(e.nativeEvent.target.value)580611650b710b44eb27d612123
+    }
+    signOut(e){
+        e.preventDefault();
+        $.confirm('您要退出登录么?',()=> {
+            localStorage.removeItem('userToken');
+            this.context.router.push('/login')
+        })
+
     }
     render() {
         return (
@@ -97,9 +101,15 @@ class Me extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    <div className="content-block">
+                        <p><a onClick={(e)=>{this.signOut(e)}} className="button button-danger button-fill button-big">退出登录</a></p>
+                    </div>
                 </div>
             </div>
         );
     }
+}
+Me.contextTypes={
+    router: React.PropTypes.object
 }
 export default Me;

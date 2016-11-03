@@ -1,115 +1,108 @@
-var Router = ReactRouter; // 由于是html直接引用的库，所以 ReactRouter 是以全局变量的形式挂在 window 上
-var Route = ReactRouter.Route;
-var RouteHandler = ReactRouter.RouteHandler;
-var Link = ReactRouter.Link;
-var StateMixin = ReactRouter.State;
-var Redirect = ReactRouter.Redirect;
+import React from 'react';
+import {UserModel} from '../dataModel';
+import {Link} from 'react-router';
+import ReactDOM from 'react-dom';
 
+class Me extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            info:[],
+        };
+    }
 
-/**
- * 图书列表组件
- */
-var Books = React.createClass({
-    render: function() {
+    componentDidMount(){
+        //判断是否登录
+        var token = UserModel.fetchToken()
+        if(!token){
+            location.hash = "/login";
+            return;
+        }
+        this.fetchData();
+    }
+    fetchData(){
+        let token= UserModel.fetchToken();
+        let info = {token:token};
+        UserModel.getUserInfo(info,(res)=>{
+            // console.log(res)
+            this.setState({
+                info:res,
+            })
+        },(err)=>{
+            console.log(err)
+        })
+    }
+    componentWillUnmount(){
+    }
+    openUpload(e){
+        e.stopPropagation();
+        avatar.click()
+
+    }
+    uploadAvatar(e){
+        let _file = e.target.files[0];
+        console.log(_file)
+        if(_file.size>204800){
+            $.alert('头像大小不能超过200K')
+            return;
+        }
+        var avatarForm = this.refs.avatarForm;
+        let data = new FormData(avatarForm);
+        // data.append('img',data);
+        var token = UserModel.fetchToken();
+        data.append('token',token)
+        UserModel.uploadAvatar(data,(data)=>{
+            $.toast(data.content);
+            this.componentDidMount()
+        },(err)=>{
+            console.log(err)
+        })
+    }
+    signOut(e){
+        e.preventDefault();
+        localStorage.removeItem('userToken');
+    }
+    render() {
         return (
             <div>
-                <ul>
-                    <li key={1}><Link to="book" params={{id: 1}}>活着</Link></li>
-                    <li key={2}><Link to="book" params={{id: 2}}>挪威的森林</Link></li>
-                    <li key={3}><Link to="book" params={{id: 3}}>从你的全世界走过</Link></li>
-                </ul>
-                <RouteHandler />
+                <header className="bar bar-nav" style={{position:'relative'}}>
+                    <h1 className="title">我</h1>
+                </header>
+                <div className="content" style={{top:'1.2rem'}}>
+                    <div className="list-block">
+                        <ul>
+                            <li className="item-content item-link">
+                                <div className="item-inner">
+                                    <form id="avatarForm" ref="avatarForm" style={{display:'none'}}>
+                                        <input type="file" id="avatar" ref="avatar" name="avatar" style={{display:'none'}} onChange={this.uploadAvatar.bind(this)}/>
+                                    </form>
+                                    <div className="item-title">
+                                        <img src={this.state.info.avatar} style={{height:'2.5rem'}} onClick={(e)=>{this.openUpload(e)}}/>
+                                    </div>
+                                    <div className="item-after">{this.state.info.username}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="list-block">
+                        <ul>
+                            <li className="item-content">
+                                <div className="item-media"><i className="icon icon-edit"></i></div>
+                                <div className="item-inner">
+                                    <Link to={'myArticle'} style={{height:'100%',width:'100%',display:'block'}}>
+                                        <div className="item-title">我的文章</div>
+                                    </Link>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="content-block">
+                        <p><a onClick={(e)=>{this.signOut(e)}} className="button button-danger button-fill button-big">退出登录</a></p>
+                    </div>
+                </div>
             </div>
         );
     }
-});
-
-/**
- * 单本图书组件
- */
-var Book = React.createClass({
-    mixins: [StateMixin],
-
-    render: function() {
-        return (
-            <article>
-                <h1>这里是图书 id 为 {this.getParams()['id']} 的详情介绍</h1>
-            </article>
-        );
-    }
-});
-
-/**
- * 电影列表组件
- */
-var Movies = React.createClass({
-    render: function() {
-        return (
-            <div>
-                <ul>
-                    <li key={1}><Link to="movie" params={{id: 1}}>煎饼侠</Link></li>
-                    <li key={2}><Link to="movie" params={{id: 2}}>捉妖记</Link></li>
-                    <li key={3}><Link to="movie" params={{id: 3}}>西游记之大圣归来</Link></li>
-                </ul>
-                <RouteHandler />
-            </div>
-        );
-    }
-});
-
-/**
- * 单部电影组件
- */
-var Movie = React.createClass({
-    mixins: [StateMixin],
-
-    render: function() {
-        return (
-            <article>
-                <h1>这里是电影 id 为 {this.getParams().id} 的详情介绍</h1>
-            </article>
-        );
-    }
-});
-
-
-
-
-
-
-// 应用入口
-var App = React.createClass({
-    render: function() {
-        return (
-            <div className="app">
-                <nav>
-                    <a href="#"><Link to="movies">电影</Link></a>
-                    <a href="#"><Link to="books">图书</Link></a>
-                </nav>
-                <section>
-                    <RouteHandler />
-                </section>
-            </div>
-        );
-    }
-});
-
-
-// 定义页面上的路由
-var routes = (
-    <Route handler={App}>
-        <Route name="movies" handler={Movies}>
-            <Route name="movie" path=":id" handler={Movie} />
-        </Route>
-        <Route name="books" handler={Books}>
-            <Route name="book" path=":id" handler={Book} />
-        </Route>
-    </Route>
-);
-
-
-// 将匹配的路由渲染到 DOM 中
-Router.run(routes, Router.HashLocation, function(Root){
-    React.render(<Root />, document.body);
-});
-
+}
+export default Me;

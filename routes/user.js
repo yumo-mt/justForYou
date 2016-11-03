@@ -35,7 +35,6 @@ router.post('/register',function (req,res) {
 
 router.post('/login',function (req,res) {
     var user = req.body;
-    console.log(user,'*-*-*-*-*')
     Model('User').findOne(user,function (err,doc) {
         if(err){
             res.send({id:0,content:err});

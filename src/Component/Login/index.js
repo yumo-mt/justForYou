@@ -26,7 +26,7 @@ class Login extends React.Component {
         };
     }
     componentDidMount(){
-        console.log('App componentDidMount');
+        // console.log('App componentDidMount');
 
     }
     changeLoginFlag(e){
@@ -42,7 +42,6 @@ class Login extends React.Component {
         })
     }
     userRegister(){
-        // console.log('获取数据')
         let input = this.state;
         switch (''){
             case input.username:
@@ -129,7 +128,9 @@ class Login extends React.Component {
             console.log(data);
             UserModel.storeToken(data.content)
             $.toast('登录成功');
-            location.hash = '/me'
+
+            // location.hash = '/me'
+            this.context.router.push('/me');
         },(error)=>{
             $.toast('登录失败');
         })
@@ -249,5 +250,8 @@ class Login extends React.Component {
             </main>
         );
     }
+}
+Login.contextTypes={
+    router: React.PropTypes.object
 }
 export default Login;

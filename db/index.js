@@ -10,7 +10,7 @@ mongoose.model('User',new mongoose.Schema({
     //本来以为需要存个token的,后来想到默认的_id就是啊
     // token:{type:String,isRequired:true},
     list:{type:Object,default:[]},
-    avatar:{type:String,default:60}//头像
+    avatar:{type:String,default:'http://www.qdaily.com/images/missing_face.png'}//头像
 }))
 
 //列表Model

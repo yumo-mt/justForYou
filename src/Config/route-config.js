@@ -11,7 +11,6 @@ import Login from '../Component/Login'
 import ArticleDetail from '../Component/articleDetail/'
 import MyArticle from '../Component/Me/myArticle'
 
-//6214830160437975
 class RouteConfig extends React.Component{
     render(){
         return(
@@ -23,7 +22,6 @@ class RouteConfig extends React.Component{
                     <Route path="/create" component={Create}/>
                     <Route path="/create/:id" component={Create}/>
                     <Route path="/me" component={Me}/>
-                    {/*<Route path="/me/avatar" component={Avatar}/>*/}
                     <Route path="/login" component={Login} />
                     <Route path="/myArticle" component={MyArticle} />
                 </Route>
