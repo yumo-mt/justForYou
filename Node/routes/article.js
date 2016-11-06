@@ -77,6 +77,7 @@ router.get('/fetchArticle/:id',function (req,res) {
                         createAt:item.createAt,
                         comment:item.content,
                     })
+                    console.log(commentsList)
                 })
                     article = {
                         title:doc.title,

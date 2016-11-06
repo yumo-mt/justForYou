@@ -13,7 +13,12 @@ app.use(express.static(__dirname));
 //导入文件
 require('./db');
 var mongoose = require('mongoose');
-// mongoose.connect("mongodb://localhost:27017/justForYou");
+
+//online-API
+// global.API = 'http://114.215.80.72:4545';
+
+//dev-API
+global.API = 'http://localhost:4545';
 //加密
 var utils =require('./utils/md5');
 var user = require('./routes/user');
@@ -37,8 +42,8 @@ app.use('/user', user);
 app.use('/article', article);
 
 
-app.listen('5566',function () {
-    console.log('listen 5566 port')
+app.listen('4545',function () {
+    console.log('listen 4545 port')
 })
 
 

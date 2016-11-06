@@ -1,6 +1,7 @@
 
 const USER_TOKEN = 'userToken';
-const API = 'http://localhost:5566/'
+const API = 'http://localhost:4545/'
+// const API = 'http://114.215.80.72:4545/'
 /**
  * fetch请求数据Model
  * @param _method

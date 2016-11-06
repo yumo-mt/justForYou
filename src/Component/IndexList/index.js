@@ -1,7 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {UserModel,ArticleModel} from '../dataModel';
-import '../../static/style.css';
+import '../../static/css/style.css'
+
 import {dateDiff} from '../../Tools'
 let Styles = {
     indexList:{
@@ -60,7 +61,6 @@ class IndexList extends React.Component {
             articleId :articleId,
        }
        ArticleModel.giveStar(params,(data)=>{
-           console.log(data);
            if(data.title){
                thisSpan.style.color = 'red';
                $.toast(data.content)
@@ -69,7 +69,6 @@ class IndexList extends React.Component {
        },(err)=>{
            console.log(err)
        })
-        console.log(articleId)
     }
     starStyle(starlist){
         let userToken = UserModel.fetchToken();

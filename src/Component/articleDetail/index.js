@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../static/style.css'
+import '../../static/css/style.css'
 import {ArticleModel,UserModel} from '../dataModel';
 import {dateDiff} from '../../Tools'
 class ArticleDetail extends React.Component{

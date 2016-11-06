@@ -3,6 +3,10 @@ var formidable = require('formidable');
 var router = express.Router();
 var path= require('path');
 var fs = require('fs');
+//online-API
+// var API = 'http://114.215.80.72:4545';
+//dev-API
+// var API = 'http://localhost:4545';
 
 router.post('/register',function (req,res) {
     var user = req.body;
@@ -40,7 +44,6 @@ router.post('/login',function (req,res) {
             res.send({id:0,content:err});
         }else{
             if(doc){
-                console.log(doc)
                 res.send({id:1,content:doc._id})
             }
         }
@@ -53,7 +56,8 @@ router.post('/uploadAvatar',function (req,res) {
         var avatarPath = './upload/'+fields.token+files.avatar.name
         fs.createReadStream(files.avatar.path).pipe(fs.createWriteStream(avatarPath));
         avatarPath = avatarPath.substring(1);
-        Model('User').update({_id:fields.token},{$set:{avatar:'http://localhost:5566'+avatarPath}},function (err,doc) {
+        console.log(API+avatarPath);
+        Model('User').update({_id:fields.token},{$set:{avatar:API+avatarPath}},function (err,doc) {
             if(err){
                 res.send(err)
             }else{

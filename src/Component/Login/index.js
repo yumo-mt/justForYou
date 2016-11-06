@@ -69,7 +69,10 @@ class Login extends React.Component {
             $.alert('两次密码不一致');
             return;
         }
-
+        if(input.password.length<6){
+            $.alert('密码不得少于6位数');
+            return;
+        }
         let md5Password = md5(this.state.password)
         let userInfo = {
             username:this.state.username,

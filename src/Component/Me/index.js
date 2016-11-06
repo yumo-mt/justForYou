@@ -10,7 +10,6 @@ class Me extends React.Component {
             info:[],
         };
     }
-
     componentDidMount(){
         //判断是否登录
         var token = UserModel.fetchToken()
@@ -37,7 +36,6 @@ class Me extends React.Component {
     openUpload(e){
         e.stopPropagation();
         avatar.click()
-
     }
     uploadAvatar(e){
         let _file = e.target.files[0];
