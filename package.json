@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --inline --content-base . --history-api-fallback",
-    "build": "webpack"
+    "build": "webpack",
+    "scpNode": "scp -r justForYou/ root@114.215.80.72:/home/wwwroot/Node",
+    "scpReact":"scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYou",
+    "release":"npm run build && npm run scpNode && npm run scpReact"
   },
   "repository": {
     "type": "git",
