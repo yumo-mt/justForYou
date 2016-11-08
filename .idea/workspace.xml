@@ -2,36 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00b7f95f-ee7e-4b20-ad0a-d78a86fc8f3f" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/.idea/Node.iml" afterPath="$PROJECT_DIR$/justForYou/.idea/Node.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/.idea/misc.xml" afterPath="$PROJECT_DIR$/justForYou/.idea/misc.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/.idea/modules.xml" afterPath="$PROJECT_DIR$/justForYou/.idea/modules.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/.idea/workspace.xml" afterPath="$PROJECT_DIR$/justForYou/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/db/index.js" afterPath="$PROJECT_DIR$/justForYou/db/index.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/routes/article.js" afterPath="$PROJECT_DIR$/justForYou/routes/article.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/routes/user.js" afterPath="$PROJECT_DIR$/justForYou/routes/user.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/server.js" afterPath="$PROJECT_DIR$/justForYou/server.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/settings.js" afterPath="$PROJECT_DIR$/justForYou/settings.js" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580611650b710b44eb27d612123.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580611650b710b44eb27d612123.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580611650b710b44eb27d6121233.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580611650b710b44eb27d6121233.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580611650b710b44eb27d6122.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580611650b710b44eb27d6122.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580b2967a3feff07b8ade170101.png" afterPath="$PROJECT_DIR$/justForYou/upload/580b2967a3feff07b8ade170101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580b2967a3feff07b8ade17011221.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580b2967a3feff07b8ade17011221.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580b2967a3feff07b8ade170123.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580b2967a3feff07b8ade170123.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580b2967a3feff07b8ade1701233.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580b2967a3feff07b8ade1701233.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/580b3e1441e569098a7bda1a11221.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/580b3e1441e569098a7bda1a11221.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/58106940a4e585095af43180101.png" afterPath="$PROJECT_DIR$/justForYou/upload/58106940a4e585095af43180101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/58106940a4e585095af43180default.png" afterPath="$PROJECT_DIR$/justForYou/upload/58106940a4e585095af43180default.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/5810724852d6cb09eb46274311221.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/5810724852d6cb09eb46274311221.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/5814224c4c4125059c8f2a0d101.png" afterPath="$PROJECT_DIR$/justForYou/upload/5814224c4c4125059c8f2a0d101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/5816083abbb14907104c43f3zs.jpg" afterPath="$PROJECT_DIR$/justForYou/upload/5816083abbb14907104c43f3zs.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/581ac053ad083f103d0ff393101.png" afterPath="$PROJECT_DIR$/justForYou/upload/581ac053ad083f103d0ff393101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/581edd4d0b331a2a5a382c8c101.png" afterPath="$PROJECT_DIR$/justForYou/upload/581edd4d0b331a2a5a382c8c101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/581edf260b331a2a5a382c8d101.png" afterPath="$PROJECT_DIR$/justForYou/upload/581edf260b331a2a5a382c8d101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/upload/581f04c668287b2db1a8c31d101.png" afterPath="$PROJECT_DIR$/justForYou/upload/581f04c668287b2db1a8c31d101.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Node/utils/md5.js" afterPath="$PROJECT_DIR$/justForYou/utils/md5.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="justForYou.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,16 +47,16 @@
       </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+          <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="36">
-                <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <first_editor relative-caret-position="18">
+                <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
                 <folding />
               </first_editor>
               <second_editor />
             </state>
           </provider>
-          <provider editor-type-id="MarkdownFxPreviewEditor">
+          <provider selected="true" editor-type-id="MarkdownFxPreviewEditor">
             <state />
           </provider>
         </entry>
@@ -167,10 +138,10 @@
         <option value="$PROJECT_DIR$/Node/routes/user.js" />
         <option value="$PROJECT_DIR$/Node/server.js" />
         <option value="$PROJECT_DIR$/Node/settings.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/a/b.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/justForYou/server.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -181,8 +152,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="width" value="1280" />
-    <option name="height" value="800" />
+    <option name="x" value="1280" />
+    <option name="width" value="2560" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -378,18 +350,18 @@
       <workItem from="1478242142444" duration="3296000" />
       <workItem from="1478401238689" duration="7839000" />
       <workItem from="1478517623777" duration="2787000" />
-      <workItem from="1478594126334" duration="54000" />
+      <workItem from="1478594126334" duration="587000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="203168000" />
+    <option name="totallyTimeSpent" value="203701000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <frame x="1280" y="0" width="2560" height="1440" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2104845" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1043718" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18613139" sideWeight="0.5013785" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329927" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -696,14 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/justForYou/settings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/npm-debug.log" />
     <entry file="file://$PROJECT_DIR$/a/b.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -736,17 +700,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/justForYou/settings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+      <provider editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="36">
-            <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <first_editor relative-caret-position="18">
+            <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
             <folding />
           </first_editor>
           <second_editor />
         </state>
       </provider>
-      <provider editor-type-id="MarkdownFxPreviewEditor">
+      <provider selected="true" editor-type-id="MarkdownFxPreviewEditor">
         <state />
       </provider>
     </entry>
