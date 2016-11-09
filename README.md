@@ -7,3 +7,10 @@ author:Manster  QQ:181867715
 ####交互使用 fetch+ajax
 ####打包工具 webpack
 ####转译工具 babel
+![Alt text](http://114.215.80.72:81/11.png)
+
+![Alt text](http://114.215.80.72:81/12.png)
+
+![Alt text](http://114.215.80.72:81/13.png)
+
+![Alt text](http://114.215.80.72:81/14.png)
