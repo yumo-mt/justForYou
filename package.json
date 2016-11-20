@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --content-base . --history-api-fallback",
+    "dev": "webpack-dev-server --inline --content-base . --history-api-fallback ",
     "build": "webpack",
     "scpNode": "scp -r justForYou/ root@114.215.80.72:/home/wwwroot/Node",
-    "scpReact":"scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYou",
-    "release":"npm run build && npm run scpNode && npm run scpReact"
+    "scpReact": "scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYou",
+    "release": "npm run build && npm run scpNode && npm run scpReact"
   },
   "repository": {
     "type": "git",
@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-object-assign": "^6.8.0",
-    "formidable": "^1.0.17"
+    "formidable": "^1.0.17",
+    "nodemon": "^1.11.0"
   }
 }

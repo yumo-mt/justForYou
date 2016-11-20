@@ -42,6 +42,7 @@ class Login extends React.Component {
         })
     }
     userRegister(){
+        let reg = /^\s+$/;
         let input = this.state;
         switch (''){
             case input.username:
@@ -71,6 +72,10 @@ class Login extends React.Component {
         }
         if(input.password.length<6){
             $.alert('密码不得少于6位数');
+            return;
+        }
+        if(reg.test(input.username)){
+            $.alert('用户名不能为空');
             return;
         }
         let md5Password = md5(this.state.password)

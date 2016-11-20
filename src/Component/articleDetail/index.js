@@ -5,6 +5,7 @@ import {dateDiff} from '../../Tools'
 class ArticleDetail extends React.Component{
     constructor(props){
         super(props);
+        $.showIndicator();
         this.state={
             commentList:[],
             article:'',
@@ -20,6 +21,7 @@ class ArticleDetail extends React.Component{
                 author:data.content.author,
                 comment:data.content.comments
             })
+            $.hideIndicator();
         },(err)=>{
             console.log(err)
         })
@@ -33,8 +35,8 @@ class ArticleDetail extends React.Component{
                         <img className="commentAvatar" src={item.avatar} alt=""/>
                     </div>
                     <div className="col-85 commentList">
-                        <div style={{fontWeight:'600'}}>{item.username}</div>
-                        <p style={{margin:'0.2rem 0'}}>{item.comment}</p>
+                        <div style={{fontWeight:'bold',fontSize:'15px'}}>{item.username}</div>
+                        <p style={{margin:'0.2rem 0',fontSize:'14px'}}>{item.comment}</p>
                         <div style={{fontSize:'12px'}}><span className="icon icon-clock"> </span> {dateDiff(item.createAt)}</div>
                     </div>
                 </li>
@@ -59,19 +61,23 @@ class ArticleDetail extends React.Component{
         let comment = this.refs.commentText.value;
         let articleId = this.props.params.id;
         let userId = UserModel.fetchToken();
-        let params = {
-            userId:userId,
-            articleId:articleId,
-            comment:comment
+        if(userId){
+            let params = {
+                userId:userId,
+                articleId:articleId,
+                comment:comment
             }
-        ArticleModel.comment(params,(data)=>{
-            console.log(data);
-            $.toast(data.content);
-            this.refs.commentText.value='';
-            this.componentDidMount();
-        },(err)=>{
-            console.log(err)
-        })
+            ArticleModel.comment(params,(data)=>{
+                console.log(data);
+                $.toast(data.content);
+                this.refs.commentText.value='';
+                this.componentDidMount();
+            },(err)=>{
+                console.log(err)
+            })
+        }else{
+            $.alert('您还没有登录')
+        }
     }
     render(){
         return(
@@ -89,12 +95,12 @@ class ArticleDetail extends React.Component{
                 </div>
                 <hr/>
                 <div>
-                    <h3 className="clearPt">评论:</h3>
+                    <h3 className="clearPL">评论:</h3>
                     {this.commentList()}
                 </div>
             </main>
                 <div className="comment row no-gutter" style={{margin:'none'}}>
-                    <input type="text" ref="commentText" className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
+                    <input type="text" style={{border:'none'}} ref="commentText" className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
                     <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
                 </div>
             </div>

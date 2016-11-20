@@ -41,6 +41,12 @@ app.use('*',function (req,res,next) {
 app.use('/user', user);
 app.use('/article', article);
 
+app.use(function(err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+
+
 
 app.listen('4545',function () {
     console.log('listen 4545 port')

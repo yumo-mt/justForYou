@@ -12,7 +12,6 @@ router.post('/pulish',function (req,res) {
                 res.send({title:1,content:'修改成功'})
             }
         })
-
     }else{
         info.createAt = Date.now();
         info.user = info.token;
@@ -35,7 +34,6 @@ router.post('/pulish',function (req,res) {
             })
         })
     }
-
 })
 router.get('/fetchList',function (req,res) {
     var orderBy = 'createAt';
@@ -77,7 +75,6 @@ router.get('/fetchArticle/:id',function (req,res) {
                         createAt:item.createAt,
                         comment:item.content,
                     })
-                    console.log(commentsList)
                 })
                     article = {
                         title:doc.title,
@@ -105,7 +102,14 @@ router.post('/giveStar',function (req,res) {
             var star = doc.star;
             for(var i=0;i<star.length;i++){
                 if(star[i]==userid){
-                    res.send({title:1,content:'您已经赞过了'})
+                    star.splice(i,1);
+                    Model('Article').update({_id:articleId},{$set:{star:star}},function (err,result) {
+                    if(err){
+                        res.send(err)
+                    }else{
+                        res.send({title:0,content:'取消点赞'});
+                    }
+                })
                     return;
                 }
             }

@@ -61,8 +61,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var root = document.getElementById('app');
-	// import createBrowserHistory from 'history/createBrowserHistory'
-
 	(0, _reactDom.render)(_react2.default.createElement(_routeConfig2.default, null), root);
 
 /***/ },
@@ -28107,11 +28105,13 @@
 	        paddingBottom: "0.3rem"
 	    },
 	    h4Style: {
-	        margin: "0.3rem 0"
+	        margin: "0.3rem 0",
+	        color: '#259',
+	        fontSize: '16px'
 	    },
 	    pStyle: {
 	        margin: "0.3rem 0",
-	        fontSize: "0.75rem"
+	        fontSize: "15px"
 	    },
 	    listBlock: {
 	        margin: 0
@@ -28130,7 +28130,8 @@
 	        var _this2 = _possibleConstructorReturn(this, (IndexList.__proto__ || Object.getPrototypeOf(IndexList)).call(this, props));
 
 	        _this2.state = {
-	            list: []
+	            list: [],
+	            defaultTop: null
 	        };
 	        return _this2;
 	    }
@@ -28138,17 +28139,31 @@
 	    _createClass(IndexList, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
+	            var outerScroller = document.getElementById('outerScroller');
+	            this.fetchData();
+	            var defaultTop = this.refs.outerScroller.offsetTop;
+	            this.setState({
+	                defaultTop: defaultTop
+	            });
+	            this.pullToRefresh(this.refs.outerScroller, this.refs.pullToRefreshBox, this.refs.scrollList, this.refs.preloader, this.refs.pullToRefreshArrow);
+	        }
+	        //获取数据
+
+	    }, {
+	        key: 'fetchData',
+	        value: function fetchData() {
 	            var _this3 = this;
 
 	            _dataModel.ArticleModel.fetchList('', function (data) {
 	                _this3.setState({
 	                    list: data
 	                });
+	                _this3.loadingFinish(_this3.refs.outerScroller, _this3.refs.preloader, _this3.refs.scrollList);
 	            }, function (err) {
 	                console.log(err);
 	            });
 	        }
-	        //方法之间调用
+	        //点赞
 
 	    }, {
 	        key: 'giveStar',
@@ -28172,11 +28187,17 @@
 	                    thisSpan.style.color = 'red';
 	                    $.toast(data.content);
 	                    _this4.componentDidMount();
+	                } else {
+	                    thisSpan.style.color = 'none';
+	                    $.toast(data.content);
+	                    _this4.componentDidMount();
 	                }
 	            }, function (err) {
 	                console.log(err);
 	            });
 	        }
+	        //设置点赞星样式
+
 	    }, {
 	        key: 'starStyle',
 	        value: function starStyle(starlist) {
@@ -28189,6 +28210,8 @@
 	            }
 	            return { marginRight: '0.5rem', paddingLeft: '0.3rem' };
 	        }
+	        //限制字数
+
 	    }, {
 	        key: 'wordControl',
 	        value: function wordControl(word) {
@@ -28197,6 +28220,199 @@
 	            }
 	            return word;
 	        }
+	        //下拉刷新
+
+	    }, {
+	        key: 'pullToRefresh',
+	        value: function pullToRefresh(outerScroller, pullToRefreshBox, scrollList, preloader, pullToRefreshArrow) {
+	            var _this = this;
+	            //设置初始touchstart时的Y轴坐标
+	            var touchStart;
+	            //初始总盒子的top值
+	            var defaultTopVal = outerScroller.offsetTop;
+	            // console.log(defaultTopVal);
+	            //根据需求设置一下内容list的长度
+	            scrollList.style.height = document.body.clientHeight + 'px';
+	            //检查是否满足下拉状态
+	            checkState(outerScroller.offsetTop);
+	            scrollList.onscroll = function () {
+	                var scrollListST = scrollList.scrollTop;
+	                if (parseInt(scrollListST) == 0) {
+	                    checkState(outerScroller.offsetTop);
+	                }
+	            };
+	            //检查是否满足下拉刷新的条件
+	            function checkState(point) {
+	                if (point == defaultTopVal) {
+	                    if (scrollList.scrollTop == 0) {
+	                        outerScroller.addEventListener('touchstart', startPageY, false);
+	                    }
+	                }
+	            }
+	            //监听touchmove事件
+	            function startPageY(e) {
+	                //保存touchstart时的Y轴坐标
+	                touchStart = e.targetTouches[0].pageY;
+	                outerScroller.addEventListener('touchmove', checkDirection, false);
+	            }
+	            //检查手指滑动的方向
+	            function checkDirection(e) {
+	                /**如果显示内容不是scrollList最顶端,则不满足下拉刷新条件
+	                 * 这个也是检查是否满足下拉的条件,但是不能和上面的写在一起,因为我们已经开始监听touchmove事件了,
+	                 * 因为不满足,所以把touchmove事件的监听remove掉
+	                 */
+	                if (scrollList.scrollTop > 0) {
+	                    outerScroller.removeEventListener('touchmove', checkDirection, false);
+	                    return;
+	                }
+	                //touchmove时,手机划过的Y坐标
+	                var judegP = e.targetTouches[0].pageY;
+	                //大于标示是向下滑动,开始下拉刷新,这是要监听touchmove事件来触发下拉刷新方法(pullRefresh)
+	                //如果是向上滑就remove掉checkDiretion方法
+	                if (judegP > touchStart) {
+	                    outerScroller.addEventListener('touchmove', pullRefresh, false);
+	                    outerScroller.removeEventListener('touchmove', checkDirection, false);
+	                } else {
+	                    outerScroller.removeEventListener('touchmove', checkDirection, false);
+	                }
+	            }
+	            //此方法为会又touchmove调用多次,所以用来显示下拉加载盒子
+	            function pullRefresh(e) {
+	                // console.log(_this,this);
+	                //滑动期间手指在屏幕上的位置
+	                var pageY = e.targetTouches[0].pageY;
+	                var temp = pageY - touchStart;
+	                //设置top值(多次)
+	                outerScroller.style.top = defaultTopVal + temp + 'px';
+	                //下箭头变成上箭头,提醒用户松手
+	                if (temp >= Math.abs(defaultTopVal)) {
+	                    addClass(pullToRefreshBox, 'up');
+	                }
+	                //上变下
+	                else if (temp < Math.abs(defaultTopVal)) {
+	                        _this.removeClass(pullToRefreshBox, 'up');
+	                    } else {
+	                        outerScroller.style.top = defaultTopVal + 'px';
+	                    }
+	                //如果超出默认的top值,就强制设置为默认值
+	                if (parseInt(outerScroller.style.top) < defaultTopVal) {
+	                    outerScroller.style.top = defaultTopVal + 'px';
+	                }
+	                //touchmove过程中禁止列表的操作,可以阻止默认事件,我这里就直接hidden就没有了滚动条
+	                scrollList.style.overflow = 'hidden';
+	                //同时监听touchend方法
+	                outerScroller.addEventListener('touchend', touchMoveEnd, false);
+	            }
+	            //touchend 方法,
+	            function touchMoveEnd(e) {
+	                // 首先remove掉touchmove事件的监听
+	                outerScroller.removeEventListener('touchmove', pullRefresh, false);
+	                //如果下拉程度没有到达设定的需要下拉加载的数值,就无视,但是需要将页面还原
+	                if (parseInt(outerScroller.style.top) < 0) {
+	                    //未到达指定数值
+	                    var outTime = setInterval(function () {
+	                        outerScroller.style.top = parseInt(outerScroller.style.top) - 3 + 'px';
+	                        if (parseInt(outerScroller.style.top) <= defaultTopVal) {
+	                            clearInterval(outTime);
+	                            //因为这里设置的是每10毫秒减3px,所以设定界限,如果超出就直接变为默认值
+	                            if (outerScroller.offsetTop < defaultTopVal) {
+	                                outerScroller.style.top = defaultTopVal + 'px';
+	                                //进行新一轮的监听
+	                                checkState(outerScroller.offsetTop);
+	                            }
+	                        }
+	                    }, 10);
+	                    //将内容列表设置为可操作状态
+	                    scrollList.style.overflow = 'auto';
+	                    return;
+	                }
+	                //达到了指定的下拉加载数值
+	                if (outerScroller.offsetTop >= 0) {
+	                    //用于切换加载gif
+	                    pullToRefreshArrow.style.display = 'none';
+	                    preloader.style.display = 'block';
+	                    var time = setInterval(function () {
+	                        outerScroller.style.top = outerScroller.offsetTop - 3 + 'px';
+	                        if (outerScroller.offsetTop <= 0) {
+	                            if (outerScroller.offsetTop < defaultTopVal) {
+	                                outerScroller.style.top = defaultTopVal + 'px';
+	                            }
+	                            outerScroller.style.top = 0;
+	                            clearInterval(time);
+	                            outerScroller.removeEventListener('touchmove', pullRefresh, false);
+	                            outerScroller.removeEventListener('touchend', touchMoveEnd, false);
+	                        }
+	                    }, 10);
+	                    _this.fetchData();
+	                }
+	            }
+
+	            //辅助方法
+	            //增加class
+	            function addClass(curEle, strClass) {
+	                //strClass 是一串字符串，可能含有多个class ，所以用正则区分开，然后放到数组中进行循环遍历。
+	                var aryClass = strClass.replace(/(^\s+)|(\s+$)/g, '').split(/\s+/g);
+	                for (var i = 0; i < aryClass.length; i++) {
+	                    var curClass = aryClass[i];
+	                    if (!_this.hasClass(curEle, curClass)) {
+	                        curEle.className += ' ' + curClass;
+	                    }
+	                }
+	            }
+	            //removeClass:移除掉当前元素上的class名
+
+	            //判断是否含有Class
+	        }
+	        //刷新完成
+
+	    }, {
+	        key: 'loadingFinish',
+	        value: function loadingFinish(outerScroller, preloader, scrollList) {
+	            var _this = this;
+	            scrollList.style ? scrollList.style.overflow = 'auto' : null;
+	            preloader.style ? preloader.style.display = 'none' : null;
+	            //将页面还原
+	            // return;
+	            var LFT = setInterval(function () {
+	                outerScroller.style.top = parseInt(outerScroller.style.top) - 3 + 'px';
+	                if (!outerScroller.style.top) {
+	                    clearInterval(LFT);
+	                    return;
+	                }
+	                if (parseInt(outerScroller.style.top) <= _this.state.defaultTop) {
+	                    clearInterval(LFT);
+	                    if (outerScroller.offsetTop < _this.state.defaultTop) {
+	                        outerScroller.style.top = _this.state.defaultTop + 'px';
+	                    }
+	                    //进行新的一轮监听
+	                    //
+	                    _this.pullToRefresh(_this.refs.outerScroller, _this.refs.pullToRefreshBox, _this.refs.scrollList, _this.refs.preloader, _this.refs.pullToRefreshArrow);
+	                    // checkState(outerScroller.offsetTop)
+	                    _this.refs.pullToRefreshArrow.style.display = 'block';
+	                    _this.removeClass(_this.refs.pullToRefreshBox, 'up');
+	                }
+	            }, 10);
+	        }
+	    }, {
+	        key: 'removeClass',
+	        value: function removeClass(curEle, strClass) {
+	            var aryClass = strClass.replace(/(^\s+)|(\s+$)/g, '').split(/\s+/g);
+	            for (var i = 0; i < aryClass.length; i++) {
+	                var curClass = aryClass[i];
+	                if (this.hasClass(curEle, curClass)) {
+	                    var reg = new RegExp('(^| +)' + curClass + '( +|$)');
+	                    curEle.className = curEle.className.replace(reg, ' ');
+	                }
+	            }
+	        }
+	    }, {
+	        key: 'hasClass',
+	        value: function hasClass(curEle, strClass) {
+	            var reg = new RegExp('(\\b)' + strClass + '(\\b)');
+	            return reg.test(curEle.className);
+	        }
+	        //列表
+
 	    }, {
 	        key: 'indexList',
 	        value: function indexList() {
@@ -28290,15 +28506,17 @@
 	                null,
 	                _react2.default.createElement(
 	                    'div',
-	                    { className: 'content' },
+	                    { className: ' outerScroller', id: 'outerScroller', ref: 'outerScroller' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'list-block', style: Styles.listBlock },
-	                        _react2.default.createElement(
-	                            'ul',
-	                            { style: { background: "#eee" } },
-	                            this.indexList()
-	                        )
+	                        { className: 'pullToRefreshBox', id: 'pullToRefreshBox', ref: 'pullToRefreshBox' },
+	                        _react2.default.createElement('div', { className: 'preloader', id: '', ref: 'preloader' }),
+	                        _react2.default.createElement('div', { className: 'pullToRefreshArrow', id: '', ref: 'pullToRefreshArrow' })
+	                    ),
+	                    _react2.default.createElement(
+	                        'ul',
+	                        { style: { background: "#eee" }, className: 'scroll', ref: 'scrollList' },
+	                        this.indexList()
 	                    )
 	                )
 	            );
@@ -28345,7 +28563,7 @@
 
 
 	// module
-	exports.push([module.id, "a{\n    color: inherit;\n}\n.floatLeft{\n    float: left;\n}\n.floatRight{\n    float: right;\n}\n.indexList{\n    padding-right:0.75rem;\n}\n.big{\n    font-size: 30px;\n}\n.article{\n    text-indent: 2em;\n\n}\n#app{\n    height:100%;\n\n}\n.marR{\n    margin-right:0.4rem;\n}\n.font12{\n    font-size: 13px;\n}\n.content{\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 50px;\n    left: 0;\n\n\n}\n.detailContent{\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 50px;\n    left: 0;\n    padding: 0.5rem;\n    background: white;\n    overflow: auto;\n}\n.clearPt{\n    margin-top: 0rem;\n}\nul,li{\n    list-style: none;\n    margin: 0;\n    padding:0;\n}\nhr{\n    height:1px;border:none;border-top:1px dashed #0066CC;\n}\n.comment{\n    position: fixed;\n    bottom: 0;\n    height:60px;\n    padding-top: 5px;\n    /*border-top:1px solid #e0e0e0 ;*/\n    background: #fff;\n    width: 100%;\n    z-index: 999;\n    padding:3px 0.5rem;\n    box-shadow:0px -1px 3px 0px #888888;\n\n}\n.comment a{\n\n}\n.commentInput{\n    padding: 0 0.5rem;\n    height:100%;\n}\n.commentAvatar{\n    height:2rem;\n    width:2rem;\n}\n.commentList{\n    border-top:1px solid #e0e0e0;\n    padding:0.2rem 0;\n\n}", ""]);
+	exports.push([module.id, "a{\n    color: inherit;\n}\n.floatLeft{\n    float: left;\n}\n.floatRight{\n    float: right;\n}\n.indexList{\n    padding-right:0.75rem;\n}\n.big{\n    font-size: 30px;\n}\n.article{\n    text-indent: 2em;\n    font-size: 15px;\n\n}\n#app{\n    height:100%;\n\n}\n.marR{\n    margin-right:0.4rem;\n}\n.font12{\n    font-size: 13px;\n}\n.content{\n    /*position: absolute;*/\n    top: -40px;\n    /*right: 0;*/\n    /*bottom: 50px;*/\n    /*left: 0;*/\n\n\n}\n.detailContent{\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 50px;\n    left: 0;\n    padding: 0.5rem;\n    background: white;\n    overflow: auto;\n}\n.clearPt{\n    margin-top: 0rem;\n    margin-bottom: 0rem;\n    font-size: 18px;\n}\n.clearPL{\n    margin-top: 0rem;\n    margin-bottom: 0rem;\n    font-size: 16px;\n}\nul,li{\n    list-style: none;\n    margin: 0;\n    padding:0;\n}\nhr{\n    height:1px;border:none;border-top:1px solid #EEE;\n}\n.comment{\n    position: fixed;\n    bottom: 0;\n    height:60px;\n    padding-top: 5px;\n    /*border-top:1px solid #e0e0e0 ;*/\n    background: #fff;\n    width: 100%;\n    z-index: 999;\n    padding:3px 0.5rem;\n    box-shadow:0px -1px 3px 0px #888888;\n\n}\n.comment a{\n\n}\n.commentInput{\n    padding: 0 0.5rem;\n    height:100%;\n}\n.commentAvatar{\n    height:2rem;\n    width:2rem;\n}\n.commentList{\n    border-top:1px solid #e0e0e0;\n    padding:0.2rem 0;\n\n}\n.loading{\n    height:44px;\n    width: 100%;\n}\n.pullToRefreshBox{\n    position: relative;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 40px;\n}\n.pullToRefreshBox .pullToRefreshArrow{\n    width: 1rem;\n    height: 1rem;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    margin-left: -0.15rem;\n    margin-top: -0.5rem;\n    background: no-repeat center;\n    background-image: url(\"data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2026%2040'%3E%3Cpolygon%20points%3D'9%2C22%209%2C0%2017%2C0%2017%2C22%2026%2C22%2013.5%2C40%200%2C22'%20fill%3D'%238c8c8c'%2F%3E%3C%2Fsvg%3E\");\n    background-size: 0.65rem  1rem;\n    z-index: 11;\n    -webkit-transform: rotate(0deg) translate3d(0, 0, 0);\n    transform: rotate(0deg) translate3d(0, 0, 0);\n    -webkit-transition-duration: 300ms;\n    transition-duration: 300ms;\n}\n.pullToRefreshBox.up .pullToRefreshArrow{\n    -webkit-transform: rotate(180deg) translate3d(0, 0, 0);\n    transform: rotate(180deg) translate3d(0, 0, 0);\n}\n.pullToRefreshBox .preloader {\n    display: none;\n    width: 1rem;\n    height: 1rem;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    margin-left: -0.15rem;\n    margin-top: -0.5rem;\n    background: no-repeat center;\n    background-image: url(\"http://uploadfile.huiyi8.com/2014/1023/20141023034756992.gif\");\n    background-size: 1rem  1rem;\n    z-index: 10;\n}\n.scroll{\n    width:100%;\n    margin-top:0px;\n    padding:0px;\n    height:100%;\n    overflow: auto;\n    padding-bottom: 50px;\n}\n.outerScroller{\n    position: absolute;\n    top:-40px;\n    bottom:0px;\n    width:100%;\n    left:0px;\n    overflow: hidden;\n}", ""]);
 
 	// exports
 
@@ -28884,6 +29102,7 @@
 	    }, {
 	        key: 'userRegister',
 	        value: function userRegister() {
+	            var reg = /^\s+$/;
 	            var input = this.state;
 	            switch ('') {
 	                case input.username:
@@ -28913,6 +29132,10 @@
 	            }
 	            if (input.password.length < 6) {
 	                $.alert('密码不得少于6位数');
+	                return;
+	            }
+	            if (reg.test(input.username)) {
+	                $.alert('用户名不能为空');
 	                return;
 	            }
 	            var md5Password = (0, _md2.default)(this.state.password);
@@ -29642,6 +29865,7 @@
 
 	        var _this = _possibleConstructorReturn(this, (ArticleDetail.__proto__ || Object.getPrototypeOf(ArticleDetail)).call(this, props));
 
+	        $.showIndicator();
 	        _this.state = {
 	            commentList: [],
 	            article: '',
@@ -29663,6 +29887,7 @@
 	                    author: data.content.author,
 	                    comment: data.content.comments
 	                });
+	                $.hideIndicator();
 	            }, function (err) {
 	                console.log(err);
 	            });
@@ -29685,12 +29910,12 @@
 	                        { className: 'col-85 commentList' },
 	                        _react2.default.createElement(
 	                            'div',
-	                            { style: { fontWeight: '600' } },
+	                            { style: { fontWeight: 'bold', fontSize: '15px' } },
 	                            item.username
 	                        ),
 	                        _react2.default.createElement(
 	                            'p',
-	                            { style: { margin: '0.2rem 0' } },
+	                            { style: { margin: '0.2rem 0', fontSize: '14px' } },
 	                            item.comment
 	                        ),
 	                        _react2.default.createElement(
@@ -29731,19 +29956,23 @@
 	            var comment = this.refs.commentText.value;
 	            var articleId = this.props.params.id;
 	            var userId = _dataModel.UserModel.fetchToken();
-	            var params = {
-	                userId: userId,
-	                articleId: articleId,
-	                comment: comment
-	            };
-	            _dataModel.ArticleModel.comment(params, function (data) {
-	                console.log(data);
-	                $.toast(data.content);
-	                _this3.refs.commentText.value = '';
-	                _this3.componentDidMount();
-	            }, function (err) {
-	                console.log(err);
-	            });
+	            if (userId) {
+	                var params = {
+	                    userId: userId,
+	                    articleId: articleId,
+	                    comment: comment
+	                };
+	                _dataModel.ArticleModel.comment(params, function (data) {
+	                    console.log(data);
+	                    $.toast(data.content);
+	                    _this3.refs.commentText.value = '';
+	                    _this3.componentDidMount();
+	                }, function (err) {
+	                    console.log(err);
+	                });
+	            } else {
+	                $.alert('您还没有登录');
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -29789,7 +30018,7 @@
 	                        null,
 	                        _react2.default.createElement(
 	                            'h3',
-	                            { className: 'clearPt' },
+	                            { className: 'clearPL' },
 	                            '\u8BC4\u8BBA:'
 	                        ),
 	                        this.commentList()
@@ -29798,7 +30027,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'comment row no-gutter', style: { margin: 'none' } },
-	                    _react2.default.createElement('input', { type: 'text', ref: 'commentText', className: 'col-75 commentInput', placeholder: '\u8BF4\u70B9\u4EC0\u4E48\u5427', onChange: this.checkLogin }),
+	                    _react2.default.createElement('input', { type: 'text', style: { border: 'none' }, ref: 'commentText', className: 'col-75 commentInput', placeholder: '\u8BF4\u70B9\u4EC0\u4E48\u5427', onChange: this.checkLogin }),
 	                    _react2.default.createElement(
 	                        'a',
 	                        { onClick: function onClick() {

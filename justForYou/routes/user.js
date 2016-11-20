@@ -56,7 +56,6 @@ router.post('/uploadAvatar',function (req,res) {
         var avatarPath = './upload/'+fields.token+files.avatar.name
         fs.createReadStream(files.avatar.path).pipe(fs.createWriteStream(avatarPath));
         avatarPath = avatarPath.substring(1);
-        console.log(API+avatarPath);
         Model('User').update({_id:fields.token},{$set:{avatar:API+avatarPath}},function (err,doc) {
             if(err){
                 res.send(err)
