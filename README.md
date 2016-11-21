@@ -1,6 +1,6 @@
-# justForYou
+# justForYou(求star)
 author:Manster  QQ:181867715 
-比较适合新手进行学习研究的Demo(求star)
+比较适合新手进行学习研究的Demo
 ###技术栈 : React + react-router + webpack + babel + Node + express + mongodb 等
 ####前端使用React+sui-mobile等  
 ####后端使用Node+mongodb
