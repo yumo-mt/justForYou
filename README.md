@@ -7,14 +7,14 @@ author:Manster  QQ:181867715
 ####交互使用 fetch+ajax
 ####打包工具 webpack
 ####转译工具 babel
-![](http://114.215.80.72:81/11.png)     
+![](http://demo.manster.me/11.png)     
 
-![](http://114.215.80.72:81/12.png)
+![](http://demo.manster.me/12.png)
 
-![](http://114.215.80.72:81/13.png)     
+![](http://demo.manster.me/13.png)     
 
-![](http://114.215.80.72:81/14.png)
+![](http://demo.manster.me/14.png)
 
-![](http://114.215.80.72:81/15.png)     
+![](http://demo.manster.me/15.png)     
 
-![](http://114.215.80.72:81/16.png)
+![](http://demo.manster.me/16.png)
