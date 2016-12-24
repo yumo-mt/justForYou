@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --content-base . --history-api-fallback ",
-    "build": "webpack",
+    "build": "webpack --config webpack-production.config.js --progress --colors",
     "scpNode": "scp -r justForYou/ root@114.215.80.72:/home/wwwroot/Node",
     "scpReact": "scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYou",
     "release": "npm run build && npm run scpNode && npm run scpReact"

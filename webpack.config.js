@@ -7,7 +7,8 @@ module.exports = {
     entry:path.resolve('src/app.js'),
     output:{
         path:'./build',
-        filename:'bundle.js'
+        filename:'bundle.js',
+        chunkFilename:'js/[name].[chunkhash:5].js'
     },
     resolve:{
         extensions:['','.js','.jsx','.css','.json'],
@@ -44,12 +45,12 @@ module.exports = {
             //配置信息的参数“?limit=8192”表示将所有小于8kb的图片都转为base64形式(其实应该说超过8kb的才使用url-loader 来映射到文件，否则转为data url形式)
             {
                   test: /\.(woff|woff2|ttf|svg|eot)$/,
-                  loader: "url?limit=8192"
+                  loader: "url?limit=10000"
             },
             {
-                   test: /\.(jpg|png)$/,
-                   loader: "url?limit=8192"
-            }
+                test: /\.(png|jpg|jpeg|gif)$/,
+                loader: 'url?limit=10000&name=img/[name].[hash].[ext]'
+            },
         ]
     }
 }
