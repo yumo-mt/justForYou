@@ -56,4 +56,5 @@ class MyArticle extends React.Component{
     }
 
 }
-export default MyArticle;
+module.exports = MyArticle;
+// export default MyArticle;

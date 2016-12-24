@@ -58,11 +58,19 @@ class Me extends React.Component {
     }
     signOut(e){
         e.preventDefault();
+        setTimeout(()=> {
+            $.closePanel()
+        },0)
         $.confirm('您要退出登录么?',()=> {
             localStorage.removeItem('userToken');
             this.context.router.push('/login')
         })
-
+    }
+    toMyArticle(){
+        $.closePanel()
+        setTimeout(()=> {
+            this.context.router.push('/myArticle')
+        },1000)
     }
     render() {
         return (
@@ -92,9 +100,9 @@ class Me extends React.Component {
                             <li className="item-content">
                                 <div className="item-media"><i className="icon icon-edit"></i></div>
                                 <div className="item-inner">
-                                    <Link to={'myArticle'} style={{height:'100%',width:'100%',display:'block'}}>
-                                        <div className="item-title">我的文章</div>
-                                    </Link>
+                                    {/*<Link to={'myArticle'} style={{height:'100%',width:'100%',display:'block'}}>*/}
+                                        <div onClick={()=>{this.toMyArticle()}} style={{height:'100%',width:'100%',display:'block'}} className="item-title">我的文章</div>
+                                    {/*</Link>*/}
                                 </div>
                             </li>
                         </ul>
@@ -110,4 +118,5 @@ class Me extends React.Component {
 Me.contextTypes={
     router: React.PropTypes.object
 }
-export default Me;
+module.exports = Me;
+// export default Me;

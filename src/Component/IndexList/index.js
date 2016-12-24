@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import {UserModel,ArticleModel} from '../dataModel';
 import '../../static/css/style.css'
+import Me from '../Me'
 
 import {dateDiff} from '../../Tools'
 let Styles = {
@@ -317,18 +318,25 @@ class IndexList extends React.Component {
     }
     render() {
         return (
-            <main>
-                <div className=" outerScroller" id="outerScroller" ref="outerScroller">
-                    <div className="pullToRefreshBox" id="pullToRefreshBox" ref="pullToRefreshBox">
-                        <div className="preloader" id="" ref="preloader"></div>
-                        <div className="pullToRefreshArrow" id="" ref="pullToRefreshArrow"></div>
+            <div data-log="log">
+                <main className="page page-current">
+                    <div className="outerScroller" id="outerScroller" ref="outerScroller">
+                        <div className="pullToRefreshBox" id="pullToRefreshBox" ref="pullToRefreshBox">
+                            <div className="preloader" id="" ref="preloader"></div>
+                            <div className="pullToRefreshArrow" id="" ref="pullToRefreshArrow"></div>
+                        </div>
+                        <ul style={{background:"#eee"}} className="scroll" ref="scrollList">
+                            {this.indexList()}
+                        </ul>
                     </div>
-                    <ul style={{background:"#eee"}} className="scroll" ref="scrollList">
-                        {this.indexList()}
-                    </ul>
+                </main>
+                <div className="panel-overlay"></div>
+                <div className="panel panel-left panel-reveal theme-dark" id="panel-left-demo">
+                    <Me />
                 </div>
-            </main>
+            </div>
         );
     }
 }
-export default IndexList;
+module.exports = IndexList
+// export default IndexList;

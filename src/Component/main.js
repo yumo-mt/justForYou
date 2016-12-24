@@ -22,23 +22,22 @@ let nav =()=>{
                 <span className="icon icon-edit"></span>
                 <span className="tab-label">发表</span>
             </Link>
-            <Link className="tab-item" activeClassName="active" to="me">
+            <Link className="tab-item open-panel" data-panel="#panel-left-demo" activeClassName="active">
                 <span className="icon icon-me"></span>
                 <span className="tab-label">我</span>
             </Link>
         </nav>
-
 
     )
 }
 class App extends React.Component{
     render(){
         return(
-            <div>
-                <div>
+            <div data-log="one">
+                <div data-log="two">
                     {this.props.children}
                 </div>
-                <div style={{position:"absolute",height:"50px",width:"100%",bottom:"0px"}}>{nav()}</div>
+                <div style={{position:"absolute",height:"50px",width:"100%",bottom:"0px",zIndex:'2001'}}>{nav()}</div>
             </div>
 
         )

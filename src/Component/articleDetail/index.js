@@ -99,7 +99,7 @@ class ArticleDetail extends React.Component{
                     {this.commentList()}
                 </div>
             </main>
-                <div className="comment row no-gutter" style={{margin:'none'}}>
+                <div className="comment row no-gutter" style={{margin:'none',zIndex:'2002'}}>
                     <input type="text" style={{border:'none'}} ref="commentText" className="col-75 commentInput" placeholder="说点什么吧" onChange={this.checkLogin}/>
                     <a onClick={()=>{this.handleComment()}} className="button col-25 button-fill button-big">评论</a>
                 </div>
@@ -108,4 +108,5 @@ class ArticleDetail extends React.Component{
         )
     }
 }
-export default ArticleDetail;
+module.exports = ArticleDetail
+// export default ArticleDetail;
