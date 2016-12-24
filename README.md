@@ -16,7 +16,7 @@ author:Manster  QQ:181867715
 
 -更改“我”模块UI效果
 
-![gif](http://demo.manster.me/demo.gif)
+![gif](http://demo.manster.me/demo.gif =320x568)
 
 ![](http://demo.manster.me/11.png)     
 
