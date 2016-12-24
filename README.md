@@ -10,8 +10,11 @@ author:Manster  QQ:181867715
 
 24/12/2016 更新
 -路由加载方式更改为按需加载
+
 -更新生产环境打包流程
+
 -更改“我”模块UI效果
+![Alt text](http://demo.manster.me/demo.gif)
 
 ![](http://demo.manster.me/11.png)     
 
