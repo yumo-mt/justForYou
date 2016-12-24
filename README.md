@@ -13,8 +13,6 @@ author:Manster  QQ:181867715
 -更新生产环境打包流程
 -更改“我”模块UI效果
 
-![](http://demo.manster.me/demo.gif)
-
 ![](http://demo.manster.me/11.png)     
 
 ![](http://demo.manster.me/12.png)
