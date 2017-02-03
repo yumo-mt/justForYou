@@ -15,10 +15,10 @@ require('./db');
 var mongoose = require('mongoose');
 
 //online-API
-// global.API = 'http://114.215.80.72:4545';
+global.API = 'http://114.215.80.72:4545';
 
 //dev-API
-global.API = 'http://localhost:4545';
+// global.API = 'http://localhost:4545';
 //加密
 var utils =require('./utils/md5');
 var user = require('./routes/user');
