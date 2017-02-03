@@ -3,3 +3,4 @@ node_modules
 11.js
 1.html
 justForYou/settings.js
+build/*
