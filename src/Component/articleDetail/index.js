@@ -55,10 +55,14 @@ class ArticleDetail extends React.Component{
         if(!usertoken){
            $.alert('您还没有登录')
         }
-        return
+        return;
     }
     handleComment(){
         let comment = this.refs.commentText.value;
+        if(comment == ''){
+            $.toast('评论不能为空');
+            return;
+        }
         let articleId = this.props.params.id;
         let userId = UserModel.fetchToken();
         if(userId){
