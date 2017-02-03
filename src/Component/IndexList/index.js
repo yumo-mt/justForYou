@@ -37,11 +37,16 @@ class IndexList extends React.Component {
         this.state = {
             list:[],
             defaultTop:null,
-        }
+        };
     }
     componentDidMount() {
-        var outerScroller = document.getElementById('outerScroller');
+        console.log('0-0-');
+        // var outerScroller = document.getElementById('outerScroller');
         this.fetchData();
+        // this.reseat();
+        console.log('0909');
+    }
+    reseat(){
         let defaultTop = this.refs.outerScroller.offsetTop;
         this.setState({
             defaultTop:defaultTop,
@@ -50,6 +55,7 @@ class IndexList extends React.Component {
     }
     //获取数据
     fetchData(){
+        console.log('fetchData');
         ArticleModel.fetchList('', (data)=> {
             this.setState({
                 list: data,
@@ -316,6 +322,21 @@ class IndexList extends React.Component {
                 </li>)
         })
     }
+    goLogin(){
+
+        $.closePanel()
+        setTimeout(()=> {
+            window.location.hash = 'login'
+        },1000)
+    }
+    checkLogin(){
+        if(UserModel.fetchToken()){
+            return <Me/>
+        }else{
+            return <div><p><a onClick={this.goLogin} className="button button-big button-fill button-success">登录 </a></p></div>
+        }
+
+    }
     render() {
         return (
             <div data-log="log">
@@ -332,7 +353,8 @@ class IndexList extends React.Component {
                 </main>
                 <div className="panel-overlay"></div>
                 <div className="panel panel-left panel-reveal theme-dark" id="panel-left-demo">
-                    <Me />
+                    {this.checkLogin()}
+                    {/*<Me />*/}
                 </div>
             </div>
         );
