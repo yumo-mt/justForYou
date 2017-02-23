@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin'); //css单独打�
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var openBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 module.exports = {
-    entry:path.resolve('src/app.js'),
+    entry:path.resolve('noReduxsrc/app.js'),
     output:{
         path:'./build',
         filename:'bundle.js',
@@ -16,7 +16,7 @@ module.exports = {
     plugins:[
         new HtmlWebpackPlugin({
             title:'webpack',
-            template:'./src/index.html',
+            template:'./noReduxsrc/index.html',
             filename:'index.html'
         }),
         new openBrowserWebpackPlugin({url:'http://localhost:8800'})
@@ -31,6 +31,7 @@ module.exports = {
         },
         host: "0.0.0.0"
     },
+    devtool: 'eval-source-map',
     module:{
         loaders:[
             {

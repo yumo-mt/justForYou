@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "devRedux": "webpack-dev-server --config webpack.config.redux.js --inline --content-base . --history-api-fallback ",
     "dev": "webpack-dev-server --inline --content-base . --history-api-fallback ",
     "build": "webpack --config webpack-production.config.js --progress --colors",
     "scpNode": "scp -r justForYou/ root@114.215.80.72:/home/wwwroot/Node",
     "scpReact": "scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYou",
+    "scpReactRedux": "scp -r build/ root@114.215.80.72:/home/wwwroot/demo/justForYouRedux",
     "release": "npm run build && npm run scpNode && npm run scpReact"
   },
   "repository": {
@@ -43,7 +45,11 @@
     "react": "^15.3.2",
     "react-cropper": "^0.9.4",
     "react-dom": "^15.3.2",
+    "react-redux": "^5.0.2",
     "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.8.1",
+    "redux-thunk": "^2.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",

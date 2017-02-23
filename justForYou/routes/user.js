@@ -15,19 +15,19 @@ router.post('/register',function (req,res) {
         if (err) {
             res.send('注册失败');
         } else if (doc) {
-            res.send({id: 2, content: '用户名已存在'});
+            res.send({id: 2, type:2, content: '用户名已存在'});
         } else {
             Model('User').findOne({email: user.email}, function (err, doc) {
                 if (err) {
                     res.send('注册失败');
                 } else if (doc) {
-                    res.send({id: 3, content: '邮箱已被使用'});
+                    res.send({id: 3,type:2, content: '邮箱已被使用'});
                 } else {
                     Model('User').create(user, function (err, doc) {
                         if (err) {
                             res.send('注册失败')
                         } else {
-                            var data = {id: 1, content: doc._id}
+                            var data = {id: 1,type:2, content: doc._id}
                             res.send(data);
                         }
                     })
@@ -41,10 +41,12 @@ router.post('/login',function (req,res) {
     var user = req.body;
     Model('User').findOne(user,function (err,doc) {
         if(err){
-            res.send({id:0,content:err});
+            res.send({id:0,type:1,content:err});
         }else{
             if(doc){
-                res.send({id:1,content:doc._id})
+                res.send({id:1,type:1,content:doc._id})
+            }else{
+                res.send({id:0,type:1,content:'用户不存在'})
             }
         }
     })
