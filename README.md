@@ -498,7 +498,7 @@ function mapDispatchToProps(dispatch) {
 const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
 ```
 在这里盗用一张图
-![](http://demo.manster.me/img/all_redux.png)
+![](https://github.com/rongchanghai/justForYou/blob/master/screenshots/all_redux.png)
 
 这样我们就会发现使用的React-Redux的开发流程是这样的：
 ` component --> actionCreator(data) --> reducer --> component`  
