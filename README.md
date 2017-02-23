@@ -18,7 +18,14 @@
 ####转译工具: babel
 ####数据流控制:  redux
 
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/gif.gif" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/2.png" width="365" height="619"/>
 
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/1.png" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/3.png" width="365" height="619"/>
+
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/4.png" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/5.png" width="365" height="619"/>
 
 
 ##下载
