@@ -353,8 +353,8 @@ React.render(<Router routes={routes} />, document.body)
 
 > 模块导出的时候请使用 **module.exports = XXX**
 #####实例代码
-```
 
+```
 const news = (location, cb) => {
     require.ensure([], require => {
         cb(null, require('../Component/news').default)
@@ -385,7 +385,9 @@ const RouteConfig = (
     </Router>
 );
 ```
+
 #####webpack配置chunkFilename
+
 ```
 ...
 output:{
@@ -395,6 +397,7 @@ output:{
     },
 ...
 ```
+
 ##Redux
 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。 
 > 首先明确一点的就是：Redux并不是React必须的，也没有任何依赖，你可以很自由的将他应用到各种前端框架、jQuery、原生JS中，它只是一个数据流管理工具。
@@ -434,6 +437,7 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 > - 调用非纯函数，如 Date.now() 或 Math.random()
 
 根据业务逻辑可以分为很多个reducer，然后通过` combineReducers`将它们合并
+
 ```
 const RootReducer = combineReducers({
      video,
