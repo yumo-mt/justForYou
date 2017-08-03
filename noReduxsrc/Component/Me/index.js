@@ -39,7 +39,7 @@ class Me extends React.Component {
     }
     uploadAvatar(e){
         let _file = e.target.files[0];
-        console.log(_file)
+        console.log(_file,'2222')
         if(_file.size>204800){
             $.alert('头像大小不能超过200K')
             return;

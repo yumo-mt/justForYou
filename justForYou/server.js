@@ -15,7 +15,7 @@ require('./db');
 var mongoose = require('mongoose');
 
 //online-API
-global.API = 'http://114.215.80.72:4545';
+// global.API = 'http://114.215.80.72:4545';
 
 //dev-API
 // global.API = 'http://localhost:4545';
@@ -45,8 +45,6 @@ app.use(function(err, req, res, next) {
     console.error(err.stack);
     res.status(500).send('Something broke!');
 });
-
-
 
 app.listen('4545',function () {
     console.log('listen 4545 port')

@@ -11,7 +11,7 @@ module.exports = {
         chunkFilename:'js/[name].[chunkhash:5].js'
     },
     resolve:{
-        extensions:['','.js','.jsx','.css','.json'],
+        extensions:['.js','.jsx','.css','.json'],
     },
     plugins:[
         new HtmlWebpackPlugin({
@@ -33,25 +33,38 @@ module.exports = {
     },
     devtool: 'eval-source-map',
     module:{
-        loaders:[
+        rules: [
             {
                 test: /\.js$/, //正则，匹配到的文件后缀名
-                loader: 'babel'
+                loader: 'babel-loader',
+                options:{
+                    presets:["es2015","react"]
+                }
             },
             //加载css代码
             {
-                 test: /\.css/,
-                 loader: 'style!css'
-             },
+                test: /\.css$/,
+                use:[
+                    "style-loader",
+                    "css-loader",
+                ]
+            },
             //配置信息的参数“?limit=8192”表示将所有小于8kb的图片都转为base64形式(其实应该说超过8kb的才使用url-loader 来映射到文件，否则转为data url形式)
-            {
-                  test: /\.(woff|woff2|ttf|svg|eot)$/,
-                  loader: "url?limit=10000"
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif)$/,
-                loader: 'url?limit=10000&name=img/[name].[hash].[ext]'
-            },
+            // {
+            //   test: /\.(woff|woff2|ttf|svg|eot)$/,
+            //   use:[
+            //     {
+            //       "url-loader",
+            //       options:{limit:10000}
+            //     }
+            //   ]
+            // },
+            // {
+            //   test: /\.(png|jpg|jpeg|gif)$/,
+            //   use:[
+            //     'url?limit=10000&name=img/[name].[hash].[ext]'
+            //   ]
+            // },
         ]
     }
 }
