@@ -1,5 +1,5 @@
 # justForYou 
-### 求star
+### 喜欢请star
 交流QQ:181867715 
 ### 技术栈 : React + React-Router + Redux + webpack + babel + Node + express + mongodb 等
 
@@ -15,7 +15,7 @@
 #### 前端UI:sui-mobile  
 #### 后端:Node+mongodb
 #### 交互: fetch+ajax
-#### 打包工具: webpack（按需加载）
+#### 打包工具: webpack
 #### 转译工具: babel
 #### 数据流控制:  redux
 
@@ -35,6 +35,9 @@ git clone https://github.com/rongchanghai/justForYou.git
 cd justForYou
 npm install 
 ```
+
+
+
 
 ## 运行
 ```

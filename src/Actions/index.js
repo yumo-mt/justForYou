@@ -1,6 +1,6 @@
-const API = 'http://localhost:4545/';
+// const API = 'http://localhost:4545/';
 
-// const API = 'http://114.215.80.72:4545/'
+const API = 'http://114.215.80.72:4545/'
 
 //创建将会用到的action 和action Creater
 
@@ -214,7 +214,6 @@ export function uploadAvatarDone() {
  * @private
  */
 function _request (dispatch,endAction,_method,_api,_params) {
-
   let _options = {
     method:_method,
     mode: "cors",

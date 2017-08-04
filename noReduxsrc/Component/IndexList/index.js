@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {UserModel,ArticleModel} from '../dataModel';
 import '../../static/css/style.css'
 import Me from '../Me'

@@ -28,13 +28,13 @@ class articleDetailCase extends Component {
     if(articleId){
       Fn(articleId)
     }else{
-      this.props.actions.articleDetail(this.props.params.id);
+      this.props.actions.articleDetail(this.props.match.params.id);
     }
   }
   render() {
     const {articleDetail,isFetching,commentState} = this.props;
     const commentFn = this.props.actions.comment;
-    let article_id = this.props.params.id;
+    let article_id = this.props.match.params.id;
     let fetchData= this.fetchData;
     return (
       <ArticleDetail

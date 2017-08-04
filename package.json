@@ -42,11 +42,8 @@
     "md5": "^2.2.1",
     "mongoose": "^4.6.3",
     "open-browser-webpack-plugin": "0.0.2",
-    "react": "^15.3.2",
     "react-cropper": "^0.9.4",
-    "react-dom": "^15.3.2",
     "react-redux": "^5.0.2",
-    "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
@@ -58,6 +55,9 @@
   "dependencies": {
     "babel-plugin-transform-object-assign": "^6.8.0",
     "formidable": "^1.0.17",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2"
   }
 }

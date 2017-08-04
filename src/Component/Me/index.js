@@ -48,14 +48,16 @@ class Me extends React.Component {
     }, 0)
     $.confirm('您要退出登录么?', ()=> {
       localStorage.removeItem('userToken');
-      this.context.router.push('/login')
+      window.location.href = '#/login';
+      // this.context.router.push('/login')
     })
   }
 
   toMyArticle() {
     $.closePanel()
     setTimeout(()=> {
-      this.context.router.push('/myArticle')
+      window.location.href = "#/myArticle"
+      // this.context.router.push('/myArticle')
     }, 1000)
   }
 
@@ -67,11 +69,7 @@ class Me extends React.Component {
       username = this.props.data.username;
     }
 
-    // console.log(this.props.data);
-    // if(!this.props.data) return;
-    // let avatar = this.props.data.avatar||'';
-    // let username = this.props.data.username||'';
-    // console.log(3);
+
     return (
       <div>
         <header className="bar bar-nav" style={{position: 'relative'}}>

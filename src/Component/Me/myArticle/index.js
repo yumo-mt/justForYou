@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import * as actions from '../../../Actions';
 import {bindActionCreators} from 'redux';
@@ -18,14 +18,15 @@ class MyArticle extends React.Component {
   }
 
   fetchData() {
-    let userId =localStorage.getItem('userToken');
+    let userId = localStorage.getItem('userToken');
     let params = {userId: userId}
     this.props.actions.fetchMyArticle(params);
   }
-  componentWillReceiveProps(nextPorps){
+
+  componentWillReceiveProps(nextPorps) {
     let data = nextPorps.fetchMyArticleEnd.data.content;
     this.setState({
-        list:data
+      list: data
     })
   }
 
@@ -43,12 +44,12 @@ class MyArticle extends React.Component {
     })
 
     return (
-      <main style={{height:'100%'}}>
+      <main style={{height: '100%'}}>
         <header className="bar bar-nav" style={{position: 'relative'}}>
           <h1 className="title">我的文章</h1>
         </header>
         <div className="contetn">
-          <div className="list-block"  style={{height:'400px',overflow:'auto'}}>
+          <div className="list-block" style={{height: '400px', overflow: 'auto'}}>
             <ul>
               {list}
             </ul>
@@ -60,16 +61,16 @@ class MyArticle extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {fetchMyArticleEnd:state.fetchMyArticleEnd}
+  return {fetchMyArticleEnd: state.fetchMyArticleEnd}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions:bindActionCreators(actions,dispatch)
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 
-const MyArticleBox = connect(mapStateToProps,mapDispatchToProps)(MyArticle)
+const MyArticleBox = connect(mapStateToProps, mapDispatchToProps)(MyArticle)
 
 module.exports = MyArticleBox;
 // export default MyArticle;

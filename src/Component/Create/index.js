@@ -22,13 +22,14 @@ class Create extends React.Component {
   }
 
   componentDidMount() {
-    let articleId = this.props.params.id;
+    let articleId = this.props.match.params.id;
     if (articleId) {
       // this.fetchData(articleId);
       this.props.actions.articleDetail(articleId)
       this.setState({pageTitle: '修改文章', articleId: articleId})
     }
   }
+
   handlePublish(e) {
     let title = this.refs.title.value;
     let content = this.refs.content.value;
@@ -51,7 +52,7 @@ class Create extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.params.id&&nextProps.articleDetail.data){
+    if (this.props.match.params.id && nextProps.articleDetail.data) {
       let data = nextProps.articleDetail.data;
       this.setState({
         title: data.content.title,
@@ -59,7 +60,7 @@ class Create extends React.Component {
         article: data.content.article_id
       })
     }
-    if (nextProps.articlePulishState.data){
+    if (nextProps.articlePulishState.data) {
       $.toast(nextProps.articlePulishState.data.content);
       this.props.actions.articlePulishDone();
       location.hash = '/indexList'
@@ -96,7 +97,7 @@ class Create extends React.Component {
                 <div className="item-content">
                   <div className="item-inner" style={{borderBottom: "2px solid #eee"}}>
                     <div className="item-input">
-                      <input type="text" ref="title" placeholder="请输入标题" value={this.state.title} onChange={(e)=> {
+                      <input type="text" ref="title" placeholder="请输入标题" value={this.state.title} onChange={(e) => {
                         this.handleChangeVal(e, 'title')
                       }}/>
                     </div>
@@ -107,7 +108,7 @@ class Create extends React.Component {
                 <div className="item-content">
                   <div className="item-inner">
                     <div className="item-input">
-                      <textarea placeholder="请输入内容" ref="content" style={{height: "13rem"}} onChange={(e)=> {
+                      <textarea placeholder="请输入内容" ref="content" style={{height: "13rem"}} onChange={(e) => {
                         this.handleChangeVal(e, 'content')
                       }} value={this.state.content}/>
                     </div>
@@ -118,10 +119,10 @@ class Create extends React.Component {
           </div>
           <div className="content-block">
             <div className="row">
-              <div className="col-50"><a className="button button-big button-fill button-danger" onClick={(e)=> {
+              <div className="col-50"><a className="button button-big button-fill button-danger" onClick={(e) => {
                 this.handleCancel(e)
               }}>取消</a></div>
-              <div className="col-50"><a className="button button-big button-fill button-success" onClick={(e)=> {
+              <div className="col-50"><a className="button button-big button-fill button-success" onClick={(e) => {
                 this.handlePublish(e)
               }}>发表</a></div>
             </div>
@@ -135,7 +136,7 @@ class Create extends React.Component {
 function mapStateToProps(state) {
   return {
     articlePulishState: state.articlePulish,
-    articleDetail:state.articleDetail
+    articleDetail: state.articleDetail
   }
 }
 function mapDispatchToProps(dispatch) {

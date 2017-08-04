@@ -19,7 +19,7 @@ class Create extends React.Component {
   }
 
   componentDidMount() {
-    let articleId = this.props.params.id;
+    let articleId = this.props.match.params.id;
     if (articleId) {
       this.fetchData(articleId);
       this.setState({pageTitle: '修改文章', articleId: articleId})

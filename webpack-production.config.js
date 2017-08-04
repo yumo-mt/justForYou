@@ -1,71 +1,55 @@
-var webpack = require('webpack')
-var path = require('path')
-var buildPath = path.resolve(__dirname, 'build');
-var nodeModulesPath = path.resolve(__dirname, 'node_modules')
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var Edition = './src'
+var Edition = './noReduxsrc'
+const {resolve} = require('path')
 module.exports = {
-  entry: path.resolve(Edition+'/app.js'),
-  resolve: {extensions: ["", ".js", ".jsx"]},
-  // devtool:'source-map',
+  entry: Edition + '/app.js',
   output: {
-    path: buildPath,
-    filename: 'bundle.js',
-    chunkFilename: 'js/[name].[chunkhash:5].js'
+    // 打包输出目录
+    path: resolve(__dirname, 'build'),
+    // 入口js的打包输出文件名
+    filename: 'bundle.js'
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    }),
-    new HtmlWebpackPlugin({
-      title: 'webpack',
-      template: Edition+'/index.html',
-      filename: 'index.html'
-    }),
-    //允许错误警告，但不停止编译
-    new webpack.NoErrorsPlugin(),
-    new webpack.DefinePlugin({
-      "process.env": {
-        NODE_ENV: JSON.stringify("production")
-      }
-    })
-  ],
-
   module: {
     rules: [
       {
-        test: /\.js$/, //正则，匹配到的文件后缀名
-        loader: 'babel-loader',
-        options:{
-          presets:["es2015","react"]
-        }
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
       },
-      //加载css代码
       {
+        // 匹配.css文件
         test: /\.css$/,
-        use:[
+        use: [
           "style-loader",
           "css-loader",
         ]
       },
-      //配置信息的参数“?limit=8192”表示将所有小于8kb的图片都转为base64形式(其实应该说超过8kb的才使用url-loader 来映射到文件，否则转为data url形式)
-      // {
-      //   test: /\.(woff|woff2|ttf|svg|eot)$/,
-      //   use:[
-      //     {
-      //       "url-loader",
-      //       options:{limit:10000}
-      //     }
-      //   ]
-      // },
-      // {
-      //   test: /\.(png|jpg|jpeg|gif)$/,
-      //   use:[
-      //     'url?limit=10000&name=img/[name].[hash].[ext]'
-      //   ]
-      // },
+      {
+        // 匹配.less文件
+        test: /\.less$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000
+            }
+          }
+        ]
+      }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: Edition + '/index.html'
+    }),
+  ],
+
 }
