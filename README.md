@@ -532,5 +532,108 @@ const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
 
 大体的开发流程就是这个样子的。
 
+-----------------------------------
+
+#### 2017.8.4 更新  react-router4 文档 
+
+### react-router 4 部分 升级文档
+
+reactr-router4 与之前的版本相比有较大的变化，个人认为最棒的就是Router 和 JSX可以混着写，RR4 本次采用单代码仓库模型架构（monorepo），这意味者这个仓库里面有若干相互独立的包，分别是：
+
+` react-router ` React Router 核心
+
+` react-router-dom ` 用于 DOM 绑定的 React Router
+
+` react-router-native `用于 React Native 的 React Router
+
+` react-router-redux ` React Router 和 Redux 的集成
+
+` react-router-config ` 静态路由配置的小助手
+
+#### 在react项目中使用什么
+
+在之前版本中使用router的话一般我们就直接引入` react-router ` ,现在我们 引用` react-router-dom ` 也可以 ，不同之处就是后者比前者多出了 ` <Link> `  ` <BrowserRouter> ` 这样的 DOM 类组件。
+当然，如果搭配 redux ，你还需要使用 ` react-router-redux `。
+
+###组件
+
+#### BrowserRouter
+
+1. basename: 设置基准的 URL，使用场景：应用部署在 服务器的二级目录，将其设置为目录名称，不能以 /结尾，设置之后跳转的页面都会加上 basename的前缀
+
+2. forceRefresh: 是否强制刷新页面，用于适配不支持 h5 history 的浏览器
+
+3. getConfirmation: 弹出浏览器的确认框，进行确认
+
+对比：
+
+```
+// 4.0 之前写法
+  <Router history={history}>
+      <App/>
+    </Router>
+    
+    
+// 4.0 之后写法
+    
+    <BrowserRouter> 或者 <HashRouter>
+
+```
+
+#### Route 
+
+ 并没有太大的变化，注意，如果path没有赋值，那么此Route就是默认渲染的。 可以代替 ` indexRoute ` 
+ 当然，Route其实还有几个属性，比如location，strict,chilren 希望你们自己去[了解一下](https://reacttraining.com/react-router/web/api/Router)。
+
+#### Link 
+
+` to:string ` 链接到的路径名或位置
+
+` to: object ` 连接的位置
+
+` replace: bool `  如果为true，单击链接将替换历史堆栈中的当前条目，而不是添加新条目。
+
+#### NavLink
+
+新增的特殊的Link，用于导航
+` activeClassName：string ` 当活动时给出元素的类。默认给定的类是active。这将与className道具相结合。
+
+` activeStyle：object ` 当元素处于活动状态时应用于元素的样式。
+
+` exact: bool `  当为true 时，仅当位置匹配完全时才会应用活动类/样式。 就是 /a/b 和 /a  的区别
+
+[详细文档](https://reacttraining.com/react-router/web/api/Link)
+
+#### Switch 
+
+渲染第一个 组件 ` <Route> `或` <Redirect> ` 匹配该位置。
+
+<Switch>是独一无二的，因为它会匹配单个。相比之下，<Route>与位置匹配的每个都包含在内
+
+```
+ //如果URL是/about，那么<About>,<User>,<NoMatch>将全部渲染，因为它们都匹配路径
+<Route path="/about" component={About}/>
+<Route path="/:user" component={User}/>
+<Route component={NoMatch}/>
+
+
+// 如果我们只想匹配一个路由组件，应该写为
+
+<Switch>
+  <Route exact path="/" component={Home}/>
+  <Route path="/about" component={About}/>
+  <Route path="/:user" component={User}/>
+  <Route component={NoMatch}/>
+</Switch>
+
+```
+
+这个对于动画的执行很有用，可以明确到哪个路由离开哪个路由进入
+
+
+具体是实例和实现项目中有，[react-router 详细文档](https://reacttraining.com/react-router/web/api/BrowserRouter)  
+
+
+
 ##### 根据自己的想法并参考一些大神的博客等写了这个Demo和文档，如果对你有一些帮助，就请star一下吧 😊
 这个文档还会继续完善……
