@@ -28,6 +28,11 @@
 <img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/4.png" width="365" height="619"/>
 <img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/5.png" width="365" height="619"/>
 
+--------------------------------------------
+### 2017.8.4 更新
+两个版本的react-router 由 2.+  升级 最新版本 4.1.2，具体文档在末尾更新
+
+
 
 ## 下载
 ```
@@ -35,9 +40,6 @@ git clone https://github.com/rongchanghai/justForYou.git
 cd justForYou
 npm install 
 ```
-
-
-
 
 ## 运行
 ```
