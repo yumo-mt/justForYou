@@ -301,7 +301,7 @@ shouldComponentUpdate: (nextProps = {}, nextState = {}) => {
 
 使用 Immutable 后，如下图，当红色节点的 state 变化后，不会再渲染树中的所有节点，而是只渲染图中绿色的部分：
 
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/db.png"/>
+<img src="http://www.manster.me/wp-content/uploads/2017/07/687474703a2f2f696d672e616c6963646e2e636f6d2f7470732f69332f54423156696e704b58585858585841587058585a5f4f644e4658582d3731352d3332342e706e67.png"/>
 
 #### Immutable和setState
 React 建议把 ```this.state ```当作 不可变 的，因此修改前需要做一个 深拷贝
