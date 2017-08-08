@@ -1,5 +1,5 @@
 # justForYou 
-### 喜欢请star
+### I need star , 2333
 交流QQ:181867715 
 ### 技术栈 : React + React-Router + Redux + webpack + babel + Node + express + mongodb 等
 

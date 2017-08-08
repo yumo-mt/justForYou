@@ -124,5 +124,4 @@ class ArticleDetail extends React.Component {
     )
   }
 }
-module.exports = ArticleDetail
-// export default ArticleDetail;
+export default ArticleDetail;

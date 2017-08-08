@@ -288,5 +288,4 @@ Login.contextTypes = {
   router: React.PropTypes.object
 }
 
-module.exports = Login;
-// export default Login;
+export default Login;

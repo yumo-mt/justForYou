@@ -129,5 +129,4 @@ class Create extends React.Component {
     );
   }
 }
-module.exports = Create;
-// export default Create;
+export default Create;

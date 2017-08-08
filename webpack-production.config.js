@@ -2,12 +2,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Edition = './noReduxsrc'
 const {resolve} = require('path')
 module.exports = {
-  entry: Edition + '/app.js',
+  entry: [Edition + '/app.js'],
   output: {
-    // 打包输出目录
-    path: resolve(__dirname, 'build'),
-    // 入口js的打包输出文件名
-    filename: 'bundle.js'
+    path: resolve(__dirname, './build'),
+    filename: '[name].[chunkhash:8].index.js',
+    chunkFilename: 'js/[name].[chunkhash:8].index.js',
   },
   module: {
     rules: [
@@ -48,7 +47,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: Edition + '/index.html'
+      template: Edition + '/index.html',
+      filename: 'index.html'
     }),
   ],
 

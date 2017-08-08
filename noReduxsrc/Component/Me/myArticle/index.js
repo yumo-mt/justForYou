@@ -64,5 +64,4 @@ class MyArticle extends React.Component {
   }
 
 }
-// module.exports = MyArticle;
 export default MyArticle;

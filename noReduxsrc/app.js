@@ -1,42 +1,31 @@
 import React from 'react';
 import {render} from 'react-dom';
-// import {Router,hashHistory} from 'react-router';
-
+import { AppContainer } from 'react-hot-loader';
 import RouteConfig from './Config/route-config';
 
-// import {IndexList, Login, ArticleDetail, Create, Me, MyArticle, CreateDetail} from './Config/route-config'
-
-// const rootRoute = {
-//   component: require('./Component/main').default,
-//   childRoutes: [{
-//     path: '/',
-//     indexRoute: {
-//       getComponent(nextState, cb){
-//         require.ensure([], (require)=> {
-//           cb(null, require('./Component/IndexList'))
-//         })
-//       }
-//     },
-//     childRoutes: [
-//       IndexList,
-//       Login,
-//       ArticleDetail,
-//       Create,
-//       Me,
-//       MyArticle,
-//       CreateDetail
-//     ]
-//   }]
-// }
 
 
 let root = document.getElementById('app');
+
+const render2 = Component => {
+  render(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+    root
+  );
+}
+
+render2(RouteConfig);
+
+if (module.hot) {
+  module.hot.accept('./Config/route-config', () => { render2(App) });
+};
+
+
+
 // render(
-//   // <RouteConfig/>
-//   <Router routes={rootRoute} history={hashHistory}/>
-//   , root);
+//   <RouteConfig/>,
+// root);
 
 
-render(
-  <RouteConfig/>,
-root);

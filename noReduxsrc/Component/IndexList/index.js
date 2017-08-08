@@ -360,5 +360,4 @@ class IndexList extends React.Component {
         );
     }
 }
-module.exports = IndexList
-// export default IndexList;
+export default IndexList;

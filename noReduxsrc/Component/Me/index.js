@@ -136,5 +136,5 @@ class Me extends React.Component {
 Me.contextTypes = {
   router: React.PropTypes.object
 }
-module.exports = Me;
-// export default Me;
+// module.exports = Me;
+export default Me;

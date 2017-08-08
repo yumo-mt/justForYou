@@ -1,94 +1,9 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link, HashRouter, BrowserRouter,withRouter, Route, NavLink, Switch} from 'react-router-dom';
+import {Link, HashRouter, BrowserRouter, withRouter, Route, NavLink, Switch} from 'react-router-dom';
 
-
-// const IndexList  = {
-//     path:'indexlist',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/IndexList'))
-//         },'indexList')
-//     }
-// }
-//
-// const Login = {
-//     path:'/login',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/Login'))
-//         },'login')
-//     }
-// }
-//
-// const ArticleDetail = {
-//     path:'/indexList/:id',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/articleDetail'))
-//         },'articleDetail')
-//     }
-// }
-//
-// const Create = {
-//     path:'create',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/Create'))
-//         },'create')
-//     },
-// }
-//
-// const CreateDetail = {
-//     path:'create/:id',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/Create'))
-//         },'createDetail')
-//     },
-// }
-//
-//
-//
-// const Me = {
-//     path:'/me',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/Me'))
-//         },'me')
-//     }
-// }
-//
-// const MyArticle = {
-//     path:'myArticle',
-//     getComponent(nextState,cb){
-//         require.ensure([],(require)=>{
-//             return cb(null,require('../Component/Me/myArticle'))
-//         },'myArticle')
-//     }
-// }
-//
-//
-// module.exports = {
-//     IndexList:IndexList,
-//     Login:Login,
-//     ArticleDetail:ArticleDetail,
-//     Create:Create,
-//     Me:Me,
-//     MyArticle:MyArticle,
-//     CreateDetail:CreateDetail
-// };
-
-
-import Create from '../Component/Create';
-import Me from '../Component/Me';
-import IndexList from '../Component/IndexList'
-// import App from '../Component/main'
-import Login from '../Component/Login'
-import ArticleDetail from '../Component/articleDetail/'
-import MyArticle from '../Component/Me/myArticle'
-
-
+import AsyncLoadModule from './AsyncComponent';
+import 'react-hot-loader/patch';
 function create() {
   $.closePanel();
   setTimeout(() => {
@@ -116,27 +31,79 @@ let nav = () => {
   )
 }
 
-
-//
-// //原始路由配置
 class RouteConfig extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+    }
+  }
+
+  WrapIndexList(props) {
+    return (
+      <AsyncLoadModule moduleId="route.indexlist" load={() => import('../Component/IndexList')}>
+        {(Comp) => <Comp {...props} title="Page Title: indexlist"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+  WrapArticleDetail(props) {
+    return (
+      <AsyncLoadModule moduleId="route.articleDetail" load={() => import('../Component/articleDetail')}>
+        {(Comp) => <Comp {...props} title="Page Title: articleDetail"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+  WrapCreate(props) {
+    return (
+      <AsyncLoadModule moduleId="route.articleDetail" load={() => import('../Component/Create')}>
+        {(Comp) => <Comp {...props} title="Page Title: create"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+  WrapMe(props) {
+    return (
+      <AsyncLoadModule moduleId="route.me" load={() => import('../Component/Me')}>
+        {(Comp) => <Comp {...props} title="Page Title: me"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+  WrapLogin(props) {
+    return (
+      <AsyncLoadModule moduleId="route.login" load={() => import('../Component/Login')}>
+        {(Comp) => <Comp {...props} title="Page Title: login"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+  WrapMyArticle(props) {
+    return (
+      <AsyncLoadModule moduleId="route.myarticle" load={() => import('../Component/Me/myArticle')}>
+        {(Comp) => <Comp {...props} title="Page Title: WrapMyArticle"/>}
+      </AsyncLoadModule>
+    )
+  }
+
+
   render() {
     return (
       <HashRouter>
         <div data-log="one">
           <div data-log="two">
-              <div>
-                <Switch>
-                  <Route exact path="/" component={IndexList}/>
-                  <Route exact name="indexlist" path="/indexlist" component={IndexList}/>
-                  <Route exact name="articleDetail" path="/indexList/:id" component={ArticleDetail}/>
-                  <Route exact path="/create" component={Create}/>
-                  <Route exact path="/create/:id" component={Create}/>
-                  <Route exact path="/me" component={Me}/>
-                  <Route exact path="/login" component={Login}/>
-                  <Route exact path="/myArticle" component={MyArticle}/>
-                </Switch>
-              </div>
+            <div>
+              <Switch>
+                <Route exact path="/" component={this.WrapIndexList}/>
+                <Route exact name="indexlist" path="/indexlist" component={this.WrapIndexList}/>
+                <Route exact name="articleDetail" path="/indexList/:id" component={this.WrapArticleDetail}/>
+                <Route exact path="/create" component={this.WrapCreate}/>
+                <Route exact path="/create/:id" component={this.WrapCreate}/>
+                <Route exact path="/me" component={this.WrapMe}/>
+                <Route exact path="/login" component={this.WrapLogin}/>
+                <Route exact path="/myArticle" component={this.WrapMyArticle}/>
+              </Switch>
+            </div>
           </div>
           <div
             style={{position: "absolute", height: "50px", width: "100%", bottom: "0px", zIndex: '2001'}}>{nav()}</div>
