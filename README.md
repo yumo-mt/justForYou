@@ -19,14 +19,7 @@
 #### 转译工具: babel
 #### 数据流控制:  redux
 
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/gif.gif" width="365" height="619"/>
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/2.png" width="365" height="619"/>
 
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/1.png" width="365" height="619"/>
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/3.png" width="365" height="619"/>
-
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/4.png" width="365" height="619"/>
-<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/5.png" width="365" height="619"/>
 
 ----------------------------------------------
 ### 2017.8.8 更新
@@ -36,10 +29,20 @@ redux版本为 v2/v3 按需加载的实现。
 [v4 按需加载Demo看这里](https://github.com/rongchanghai/react-router-demo)
 
 
-
 --------------------------------------------
 ### 2017.8.4 更新
 两个版本的react-router 由 2.+  升级 最新版本 4.1.2，具体文档在末尾更新
+
+
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/gif.gif" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/2.png" width="365" height="619"/>
+
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/1.png" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/3.png" width="365" height="619"/>
+
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/4.png" width="365" height="619"/>
+<img src="https://github.com/rongchanghai/justForYou/blob/master/screenshots/5.png" width="365" height="619"/>
+
 
 
 
