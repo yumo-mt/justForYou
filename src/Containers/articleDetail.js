@@ -32,6 +32,7 @@ class articleDetailCase extends Component {
     }
   }
   render() {
+    console.log('action',this.props.actions)
     const {articleDetail,isFetching,commentState} = this.props;
     const commentFn = this.props.actions.comment;
     let article_id = this.props.match.params.id;
@@ -45,7 +46,6 @@ class articleDetailCase extends Component {
         commentState={commentState}
         fetchData={fetchData}
         callback={this.props.actions.articleDetail}
-        commentDone={this.props.actions.commentDone}
       />
     )
   }
@@ -55,6 +55,11 @@ class articleDetailCase extends Component {
 //绑定数据
 
 function mapStateToProps(state) {
+  
+  
+  console.log('mapStateToProps',state)
+  
+  
   const {articleDetail,comment} = state;
   return {
     articleDetail:articleDetail.data,
@@ -65,6 +70,7 @@ function mapStateToProps(state) {
 
 //绑定事件
 function mapDispatchToProsp(dispatch) {
+  console.log(actions,'////')
   return {
     actions:bindActionCreators(actions,dispatch)
   }

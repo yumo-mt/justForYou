@@ -21,18 +21,6 @@ class ArticleDetail extends React.Component {
   }
 
   componentDidMount() {
-    // let article_id = this.props.params.id;
-    // ArticleModel.fetchArticle(article_id,(data)=>{
-    //     this.setState({
-    //         article:data.content,
-    //         author:data.content.author,
-    //         comment:data.content.comments
-    //     })
-    // console.log(this.props);
-    // $.hideIndicator();
-    // },(err)=>{
-    //     console.log(err)
-    // })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -117,7 +105,6 @@ class ArticleDetail extends React.Component {
 
     return (
       <div>
-
         <main className="detailContent">
           <h2 className="clearPt">{this.state.title}</h2>
           <div>
@@ -147,4 +134,3 @@ class ArticleDetail extends React.Component {
   }
 }
 module.exports = ArticleDetail
-// export default ArticleDetail;
