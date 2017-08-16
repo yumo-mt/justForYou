@@ -41,7 +41,7 @@ console.dir(c)
 
 实现的本质是重写了原型对象 ，通过将子类的原型指向了父类的实例，所以子类的实例就可以通过```__proto__```访问到 ```Child.prototype``` 也就是 Parent的实例，这样就可以访问到父类的私有方法，然后再通过```__proto__```指向父类的```prototype```就可以获得到父类原型上的方法。这样就做到了将父类的私有、公有方法和属性都当做子类的公有属性。这样就通过原型链实现了继承。但是别忘了默认的原型，因为所有引用类型都是继承了Object的，所有说子类也可以访问到Object上的方法如toString() 、valueOf() 等。
 
-<img src="http://www.manster.me:80/wp-content/uploads/2016/07/35944-300x161.jpg" />
+![](http://www.manster.me:80/wp-content/uploads/2016/07/35944-300x161.jpg）
 
 这个时候我们可以通过instanceof检测一下会发现
 
@@ -143,8 +143,7 @@ var p = new Parent();
 var c = new Child();
 console.dir(c)
 ```
-
-<img src="http://www.manster.me:80/wp-content/uploads/2016/07/QQ截图20160714003944-300x133.jpg" />
+![](http://www.manster.me:80/wp-content/uploads/2016/07/QQ截图20160714003944-300x133.jpg）
 
 这个就不过多解释重要的只有一点， for in 可以遍历到原型上的公有自定义属性 ，所以他可以拿到私有和公有的属性和方法，这个你可以遍历私有和公有的，需要你加限制条件。但是如果不做```hasOwnProperty```判断那么就是把父类的公有的和私有的都拿过来当私有的。
 
