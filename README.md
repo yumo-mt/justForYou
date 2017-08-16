@@ -535,12 +535,13 @@ const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
 
 ### 项目总结
 简单的说一下我是怎么开发这个小Demo的，只说redux前端部分：
-1、**设计State**，这是最重要的一步，他决定了你的action和reducer怎么写。
-2、先写内容组件component，这一部分只是UI展示，不负责数据交流。
-3、根据State来写actionCreater，thunk和普通的action区分开，导出thunk。
-4、根据State来写reducer，按照state和模块将reducer分开，最后使用combineReducers合成一个总的Reducer。
-5、整合store，根据Reducer和中间件来生成store。
-6、现在根据component来写container，这一部分只负责数据、状态。
+1. **设计State**，这是最重要的一步，他决定了你的action和reducer怎么写。
+2. 先写内容组件component，这一部分只是UI展示，不负责数据交流。没有状态（不使用this.state这个变量），所有的数据又this.props 提供
+3. 根据State、Action来写actionCreater，thunk和普通的action区分开，导出thunk。
+4. 根据State来写reducer，按照state和模块将reducer分开，最后使用combineReducers合成一个总的Reducer。
+5. 整合store，根据Reducer和中间件来生成store。
+6. 现在根据component来写container，这一部分只负责数据、状态。
+7. container中mapStateToProps负责把当前组件所需的state过滤出来，mapDispatchToProsp 负责绑定方法，return的对象中bindActionCreators 的参数为action中导出的thunk的集合。
 
 大体的开发流程就是这个样子的。
 
