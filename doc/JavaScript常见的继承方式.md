@@ -7,8 +7,7 @@
 
 构造函数和原型还有实例之间的关系：每个构造函数都有一个原型对象（prototype），原型对象都包含一个指向构造函数的指针（constructor），而实例都包含一个指向原型对象的内部指针 ```（__propto__）``` 。
 
-
-<img src="http://www.manster.me/wp-content/uploads/2016/07/12233144.jpg" />
+![](http://www.manster.me/wp-content/uploads/2016/07/12233144.jpg)
 
 其实每一个Function都是Object基类的一个实例，所以每一个Function上都有一个__proto__指向了Object.prototype。当查找一个实例的属性时，会先从这个实例的自定义属性上找，如果没有的话通过__proto__去实例所属类的原型上去找，如果还没有的话再通过原型（原型也是对象，只要是对象就有__proto__属性）的__proto__到Object的原型上去找，一级一级的找，如果没有就undefined。
 
