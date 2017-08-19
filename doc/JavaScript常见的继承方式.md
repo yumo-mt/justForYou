@@ -280,5 +280,5 @@ var o={name:"张三",age:18}；
 var o2=create(o);//这样o2就继承自o了
 ```
 
-#### 下高速，点star缴费
+#### 下高速，star
 
