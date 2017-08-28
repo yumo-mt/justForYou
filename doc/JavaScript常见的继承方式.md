@@ -252,7 +252,7 @@ function S(){
 	F.call(this)//只继承了私有的；
 }
 function inheritPrototype(subType,superType){
-	var prototype = Object.create(superType.prototype);//创建对象
+	var prototype = Object(superType.prototype);//创建对象
 	prototype.constructor = subType;//增强对象
 	subType.prototype = prototype;//指定对象
 }
