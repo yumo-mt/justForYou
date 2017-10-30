@@ -3,9 +3,9 @@ import '../../static/css/style.css'
 import {ArticleModel, UserModel} from '../dataModel';
 import {dateDiff} from '../../Tools';
 
-
-
-
+import setPageTitle from '../HOC/setPageTitle.js';
+//
+@setPageTitle
 class ArticleDetail extends React.Component {
   constructor(props) {
     super(props);

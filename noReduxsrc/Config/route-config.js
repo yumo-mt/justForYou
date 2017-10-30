@@ -41,7 +41,7 @@ class RouteConfig extends React.Component {
   WrapIndexList(props) {
     return (
       <AsyncLoadModule moduleId="route.indexlist" load={() => import('../Component/IndexList')}>
-        {(Comp) => <Comp {...props} title="Page Title: indexlist"/>}
+        {(Comp) => <Comp {...props} title="首页列表"/>}
       </AsyncLoadModule>
     )
   }
@@ -49,7 +49,7 @@ class RouteConfig extends React.Component {
   WrapArticleDetail(props) {
     return (
       <AsyncLoadModule moduleId="route.articleDetail" load={() => import('../Component/articleDetail')}>
-        {(Comp) => <Comp {...props} title="Page Title: articleDetail"/>}
+        {(Comp) => <Comp {...props} title="文章详情"/>}
       </AsyncLoadModule>
     )
   }
@@ -57,7 +57,7 @@ class RouteConfig extends React.Component {
   WrapCreate(props) {
     return (
       <AsyncLoadModule moduleId="route.articleDetail" load={() => import('../Component/Create')}>
-        {(Comp) => <Comp {...props} title="Page Title: create"/>}
+        {(Comp) => <Comp {...props} title="创建文章"/>}
       </AsyncLoadModule>
     )
   }
@@ -73,7 +73,7 @@ class RouteConfig extends React.Component {
   WrapLogin(props) {
     return (
       <AsyncLoadModule moduleId="route.login" load={() => import('../Component/Login')}>
-        {(Comp) => <Comp {...props} title="Page Title: login"/>}
+        {(Comp) => <Comp {...props} title="登录注册"/>}
       </AsyncLoadModule>
     )
   }
@@ -81,7 +81,7 @@ class RouteConfig extends React.Component {
   WrapMyArticle(props) {
     return (
       <AsyncLoadModule moduleId="route.myarticle" load={() => import('../Component/Me/myArticle')}>
-        {(Comp) => <Comp {...props} title="Page Title: WrapMyArticle"/>}
+        {(Comp) => <Comp {...props} title="我的文章列表"/>}
       </AsyncLoadModule>
     )
   }

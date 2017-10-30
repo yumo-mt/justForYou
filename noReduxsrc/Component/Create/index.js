@@ -1,7 +1,9 @@
 import React from 'react';
 import {UserModel, ArticleModel} from '../dataModel';
 
-
+import setPageTitle from '../HOC/setPageTitle.js';
+//
+@setPageTitle
 class Create extends React.Component {
   constructor(props) {
     super(props);
