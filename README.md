@@ -567,7 +567,7 @@ reactr-router4 与之前的版本相比有较大的变化，个人认为最棒�
 在之前版本中使用router的话一般我们就直接引入` react-router ` ,现在我们 引用` react-router-dom ` 也可以 ，不同之处就是后者比前者多出了 ` <Link> `  ` <BrowserRouter> ` 这样的 DOM 类组件。
 当然，如果搭配 redux ，你还需要使用 ` react-router-redux `。
 
-###组件
+### 组件
 
 #### BrowserRouter
 
