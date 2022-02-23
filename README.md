@@ -47,7 +47,7 @@ redux版本为 v2/v3 按需加载的实现。
 
 ## 下载
 ```
-git clone https://github.com/rongchanghai/justForYou.git
+git clone https://github.com/yumo-mt/justForYou.git
 cd justForYou
 npm install 
 ```
@@ -515,7 +515,7 @@ function mapDispatchToProps(dispatch) {
 const indexList = connect(mapStateToProps, mapDispatchToProps)(IndexListCase)
 ```
 在这里盗用一张图
-![](https://github.com/rongchanghai/justForYou/blob/master/screenshots/all_redux.png)
+![](https://github.com/yumo-mt/justForYou/blob/master/screenshots/all_redux.png)
 
 这样我们就会发现使用的React-Redux的开发流程是这样的：
 ` component --> actionCreator(data) --> reducer --> component`  
